@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>とくじぃ | 120歳まで元気なハッピーライフ</title>
+  <meta name="description" content="64歳・大阪在住のとくじぃの公式ホームページ。学習塾に勤めながら、定年を見据え学び直し中。ブログ・note・リベシティで発信しています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary:   #FF7A2F;
+      --primary-light: #FFA06A;
+      --primary-pale: #FFF3EC;
+      --accent:    #2FC4B5;
+      --dark:      #2D2D2D;
+      --gray:      #6B7280;
+      --light:     #F9FAFB;
+      --white:     #FFFFFF;
+      --shadow:    0 4px 20px rgba(0,0,0,0.08);
+      --radius:    16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      color: var(--dark);
+      background: var(--light);
+      line-height: 1.7;
+    }
+
+    /* ===== HEADER / HERO ===== */
+    header {
+      background: linear-gradient(135deg, #FF7A2F 0%, #FF5722 40%, #E91E63 100%);
+      color: white;
+      padding: 60px 24px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 240px; height: 240px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+
+    .avatar-wrap {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,0.9);
+      margin: 0 auto 24px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      position: relative; z-index: 1;
+    }
+    .avatar-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    header h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      position: relative; z-index: 1;
+      margin-bottom: 6px;
+    }
+    header .subtitle {
+      font-size: 1.05rem;
+      opacity: 0.92;
+      font-weight: 500;
+      position: relative; z-index: 1;
+      margin-bottom: 20px;
+    }
+    .header-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      position: relative; z-index: 1;
+    }
+    .header-tags span {
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    /* ===== QUOTE BANNER ===== */
+    .quote-banner {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 28px 24px;
+    }
+    .quote-banner p {
+      font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+      font-style: italic;
+      opacity: 0.9;
+      letter-spacing: 0.03em;
+    }
+    .quote-banner small {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      opacity: 0.55;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    section { margin-bottom: 56px; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    /* ===== ABOUT CARD ===== */
+    .about-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .about-card { grid-template-columns: 1fr; padding: 24px; }
+    }
+    .about-intro {
+      grid-column: 1 / -1;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #333;
+      border-left: 4px solid var(--primary);
+      padding-left: 16px;
+    }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .info-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .info-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      display: block;
+    }
+    .info-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    /* ===== CONTENT GRID ===== */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .content-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 4px solid var(--primary);
+    }
+    .content-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    }
+    .content-card.accent {
+      border-top-color: var(--accent);
+    }
+    .content-card.dark {
+      border-top-color: #5A4AE3;
+    }
+
+    .card-icon { font-size: 2rem; }
+    .card-platform {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: auto;
+    }
+    .content-card.accent .card-link { color: var(--accent); }
+    .content-card.dark   .card-link { color: #5A4AE3; }
+
+    /* ===== HOBBY CHIPS ===== */
+    .hobby-grid {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-pale);
+      border: 1.5px solid var(--primary-light);
+      color: var(--primary);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* ===== TIMELINE ===== */
+    .timeline {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 24px;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 38px;
+      bottom: 0;
+      width: 2px;
+      background: #E5E7EB;
+    }
+    .timeline-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--primary-pale);
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .timeline-text strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .timeline-text p {
+      font-size: 0.87rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ===== SNS LINKS ===== */
+    .sns-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .sns-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .sns-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+    .sns-btn.blog   { background: #FF7A2F; color: white; }
+    .sns-btn.note   { background: #41C9B4; color: white; }
+    .sns-btn.libe   { background: #F5B700; color: #333; }
+    .sns-btn.insta  { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: white; }
+    .sns-btn .btn-icon { font-size: 1.1rem; }
+    .sns-btn.fb     { background: #1877F2; color: white; }
+    .sns-btn.x      { background: #000; color: white; }
+
+    /* ===== SNS CARDS ===== */
+    .sns-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .sns-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .sns-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
+    .sns-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+    }
+    .sns-card.insta::before { background: linear-gradient(90deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+    .sns-card.fb::before    { background: #1877F2; }
+    .sns-card.blog::before  { background: var(--primary); }
+    .sns-card.note-c::before { background: #41C9B4; }
+
+    .sns-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sns-card-logo {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .sns-card.insta .sns-card-logo { background: linear-gradient(135deg,#f09433,#dc2743,#bc1888); }
+    .sns-card.fb .sns-card-logo    { background: #1877F2; }
+    .sns-card.blog .sns-card-logo  { background: var(--primary-pale); }
+    .sns-card.note-c .sns-card-logo { background: #E6FAF8; }
+
+    .sns-card-name { font-size: 0.75rem; color: var(--gray); font-weight: 700; letter-spacing: 0.1em; }
+    .sns-card-handle { font-size: 1.05rem; font-weight: 700; }
+    .sns-card-desc { font-size: 0.87rem; color: var(--gray); line-height: 1.65; }
+    .sns-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-top: auto;
+      padding: 8px 16px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .sns-card.insta .sns-card-cta { background: linear-gradient(135deg,#f09433,#dc2743,#bc1888); color: white; }
+    .sns-card.fb .sns-card-cta    { background: #1877F2; color: white; }
+    .sns-card.blog .sns-card-cta  { background: var(--primary); color: white; }
+    .sns-card.note-c .sns-card-cta { background: #41C9B4; color: white; }
+
+    /* ===== FEATURED ARTICLES ===== */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .article-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
+    .article-thumb {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .article-thumb.blog-thumb  { background: linear-gradient(135deg, #FFF3EC, #FFD0B0); }
+    .article-thumb.note-thumb  { background: linear-gradient(135deg, #E6FAF8, #B2F0E8); }
+    .article-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .article-platform {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .article-platform.blog { background: var(--primary-pale); color: var(--primary); }
+    .article-platform.note { background: #E6FAF8; color: #2FC4B5; }
+    .article-title { font-size: 0.95rem; font-weight: 700; line-height: 1.5; }
+    .article-link { font-size: 0.8rem; font-weight: 700; color: var(--gray); margin-top: auto; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 36px 20px;
+      font-size: 0.83rem;
+    }
+    footer strong { color: white; }
+
+    /* ===== DOMAIN NOTE ===== */
+    .domain-note {
+      background: linear-gradient(135deg, #EEF2FF, #E0F2FE);
+      border: 1.5px solid #C7D2FE;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-size: 0.88rem;
+      color: #3730A3;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .domain-note .dn-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header>
+  <div class="avatar-wrap">
+    <img src="tokuji-kayo.png" alt="とくじぃ＆かよさん">
+  </div>
+  <h1>とくじぃ</h1>
+  <p class="subtitle">120歳まで元気なハッピーライフ</p>
+  <div class="header-tags">
+    <span>📍 大阪</span>
+    <span>🎂 64歳</span>
+    <span>📚 学習塾</span>
+    <span>🎸 ギター・三線</span>
+    <span>💡 学び直し中</span>
+  </div>
+</header>
+
+<!-- ===== QUOTE ===== -->
+<div class="quote-banner">
+  <p>"Live as if you were to die tomorrow,<br>Learn as if you were to live forever."</p>
+  <small>— とくじぃの座右の銘</small>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+  <!-- ABOUT -->
+  <section>
+    <p class="section-label">About Me</p>
+    <h2>こんにちは！とくじぃです😊</h2>
+    <div class="about-card">
+      <p class="about-intro">
+        定年を２年後に控えた64歳のおじいちゃんです。<br>
+        大阪の学習塾で長年「教える側」として働いてきましたが、今は自分自身が「学ぶ側」に転換中！<br>
+        子育ても終わり、妻と二人でのんびり暮らしながら、毎日新しいことに挑戦しています。<br>
+        一応、資産形成は終わっていますが、まだまだやりたいこと・勉強したいことが山積み。<br>
+        <strong>120歳まで現役でハッピーに生きること</strong>が目標です！
+      </p>
+      <div class="info-item">
+        <span class="info-icon">🗾</span>
+        <div>
+          <span class="info-label">出身・在住</span>
+          <span class="info-value">大阪市生まれ・大阪府在住</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">💼</span>
+        <div>
+          <span class="info-label">職業</span>
+          <span class="info-value">学習塾（教育関係）</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">👨‍👩‍</span>
+        <div>
+          <span class="info-label">家族</span>
+          <span class="info-value">妻と二人暮らし（子育て卒業！）</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">📖</span>
+        <div>
+          <span class="info-label">好きな本</span>
+          <span class="info-value">喜多川泰さんの著書は全部</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">💻</span>
+        <div>
+          <span class="info-label">愛用パソコン</span>
+          <span class="info-value">Mac 派</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section>
+    <p class="section-label">Photo Gallery</p>
+    <h2>とくじぃの日常 📸</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:16px;">
+      <div style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.10);background:#fff;">
+        <img src="bbq.png" alt="家族でBBQ🌸" style="width:100%;height:260px;object-fit:cover;display:block;">
+        <div style="padding:14px 16px;">
+          <p style="font-weight:700;font-size:0.95rem;color:#2D2D2D;">🌸 家族みんなでBBQ</p>
+          <p style="font-size:0.85rem;color:#6B7280;margin-top:4px;">笑顔いっぱいの最高の時間！</p>
+        </div>
+      </div>
+      <a href="https://toku-jii.seesaa.net/" target="_blank" style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.10);background:#fff;text-decoration:none;color:inherit;display:block;">
+        <img src="tokuji-kayo.png" alt="とくじぃ＆かよさん @ OSAKA EXPO'25" style="width:100%;height:260px;object-fit:cover;object-position:center top;display:block;">
+        <div style="padding:14px 16px;">
+          <p style="font-weight:700;font-size:0.95rem;color:#2D2D2D;">🌍 とくじぃ＆かよさん @ OSAKA EXPO'25</p>
+          <p style="font-size:0.85rem;color:#6B7280;margin-top:4px;">大阪・関西万博、楽しんできました！</p>
+        </div>
+      </a>
+      <a href="offkai_matome.html" target="_blank" style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.10);background:#fff;text-decoration:none;color:inherit;display:block;">
+        <img src="offkai-illust.png" alt="Claude Codeお手伝いオフ会" style="width:100%;height:260px;object-fit:cover;display:block;">
+        <div style="padding:14px 16px;">
+          <p style="font-weight:700;font-size:0.95rem;color:#2D2D2D;">🤖 Claude Codeお手伝いオフ会</p>
+          <p style="font-size:0.85rem;color:#6B7280;margin-top:4px;">2026年4月13日・四ツ橋オフィスにて。仲間と一緒にAIを使いこなそう！</p>
+        </div>
+      </a>
+      <div style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.10);background:#fff;">
+        <img src="osanpo.png" alt="休日のお散歩" style="width:100%;height:260px;object-fit:cover;display:block;">
+        <div style="padding:14px 16px;">
+          <p style="font-weight:700;font-size:0.95rem;color:#2D2D2D;">🚶 休日のお散歩</p>
+          <p style="font-size:0.85rem;color:#6B7280;margin-top:4px;">のんびり歩いてリフレッシュ！お散歩で見つける小さな幸せ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENTS -->
+  <section>
+    <p class="section-label">Contents</p>
+    <h2>発信しているコンテンツ</h2>
+    <div class="content-grid">
+
+      <a href="https://toku-jii.seesaa.net/" target="_blank" class="content-card">
+        <span class="card-icon">✍️</span>
+        <span class="card-platform">Seesaa Blog</span>
+        <span class="card-title">120歳まで元気なハッピーライフ</span>
+        <span class="card-desc">iPhone・Apple製品、メルカリ活用術、リベ大の学び、日々の発見などを気ままに発信中。</span>
+        <span class="card-link">ブログを読む →</span>
+      </a>
+
+      <a href="https://note.com/tokupapa" target="_blank" class="content-card accent">
+        <span class="card-icon">📝</span>
+        <span class="card-platform">note</span>
+        <span class="card-title">とくじぃの学び直しノート</span>
+        <span class="card-desc">定年・リタイヤを見据え、教育現場で考えてきたこと。教える立場から学ぶ立場へ。</span>
+        <span class="card-link">noteを読む →</span>
+      </a>
+
+      <a href="https://libecity.com/user_profile/tIDww2xsBgTRyVTpdeEMbkLp6Bm2" target="_blank" class="content-card dark">
+        <span class="card-icon">🦁</span>
+        <span class="card-platform">リベラルアーツシティ（リベシティ）</span>
+        <span class="card-title">トラ会員として活動中</span>
+        <span class="card-desc">両学長のリベシティに2025年1月入会。宿題リストを進めながら仲間と学ぶ毎日。Claude Code導入お手伝いオフ会も主催！</span>
+        <span class="card-link">プロフィールを見る →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- HOBBIES -->
+  <section>
+    <p class="section-label">Hobbies & Interests</p>
+    <h2>趣味・好きなこと</h2>
+    <div class="hobby-grid">
+      <p style="color:#555;font-size:0.95rem;line-height:1.8;">
+        定年後の人生をもっと豊かにしようと、いろいろなことに挑戦中です。<br>
+        音楽・読書・テクノロジーと、幅広く楽しんでいます！
+      </p>
+      <div class="chips">
+        <span class="chip">🎸 ギター</span>
+        <span class="chip">🎵 三線（沖縄三味線）</span>
+        <span class="chip">📚 読書</span>
+        <span class="chip">🍎 Apple製品</span>
+        <span class="chip">🛒 メルカリ不用品販売</span>
+        <span class="chip">💹 高配当株投資</span>
+        <span class="chip">🤖 Claude Code / AI</span>
+        <span class="chip">📊 簿記・FP勉強中</span>
+        <span class="chip">💻 プログラミング勉強中</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section>
+    <p class="section-label">My Journey</p>
+    <h2>最近の歩み</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">💰</div>
+        <div class="timeline-text">
+          <strong>約２年半で資産を大きく増やす</strong>
+          <p>両学長の動画を200本近く視聴。インデックス投資をスタートし、着実に資産形成を達成。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🏠</div>
+        <div class="timeline-text">
+          <strong>2024年3月 ― 老後の転居先にマンション一括購入</strong>
+          <p>将来の拠点を確保。人生の後半に向けた布石を着実に打ち込んでいます。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🦁</div>
+        <div class="timeline-text">
+          <strong>2025年1月 ― リベシティ入会</strong>
+          <p>朝の学長ライブに背中を押されて入会。宿題リストをこなしながら仲間と交流中。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">🤖</div>
+        <div class="timeline-text">
+          <strong>2026年 ― Claude Code導入お手伝いオフ会を主催</strong>
+          <p>四ツ橋オフィスで3回開催。AIツールを使いこなすシニアとして仲間のサポートにも奔走中！</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED ARTICLES -->
+  <section>
+    <p class="section-label">Featured Articles</p>
+    <h2>おすすめ記事 📰</h2>
+    <p style="color:#555;font-size:0.92rem;margin-bottom:20px;line-height:1.8;">
+      ブログとnoteで発信中の記事から、特におすすめの記事をご紹介します。
+    </p>
+    <div class="article-grid">
+
+      <a href="https://toku-jii.seesaa.net/" target="_blank" class="article-card">
+        <div class="article-thumb blog-thumb">🍎</div>
+        <div class="article-body">
+          <span class="article-platform blog">Seesaa Blog</span>
+          <span class="article-title">iPhoneの買い替えなら、今でしょ！Apple製品オトクな購入方法</span>
+          <span class="article-link">ブログで読む →</span>
+        </div>
+      </a>
+
+      <a href="https://note.com/tokupapa" target="_blank" class="article-card">
+        <div class="article-thumb note-thumb">📝</div>
+        <div class="article-body">
+          <span class="article-platform note">note</span>
+          <span class="article-title">教える立場から学ぶ立場へ。定年を前にした学び直しの日々</span>
+          <span class="article-link">noteで読む →</span>
+        </div>
+      </a>
+
+      <a href="https://libecity.com/know_how_library" target="_blank" class="article-card">
+        <div class="article-thumb" style="background:linear-gradient(135deg,#FF7A2F,#FF5722);display:flex;align-items:center;justify-content:center;font-size:2rem;">🛒</div>
+        <div class="article-body">
+          <span class="article-platform" style="background:#FF7A2F20;color:#FF7A2F;font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:4px;">リベシティ ノウハウ図書館</span>
+          <span class="article-title">1日20冊！本棚整理×メルカリ超高速出品法</span>
+          <span style="font-size:0.78rem;color:#E53E3E;margin-top:4px;display:block;">⚠️ リベシティ会員以外の方は一部のみ閲覧可能です</span>
+          <span class="article-link">図書館で読む →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- SNS CARDS -->
+  <section>
+    <p class="section-label">Social Media</p>
+    <h2>SNSでもつながりましょう！🤝</h2>
+    <p style="color:#555;font-size:0.92rem;margin-bottom:20px;line-height:1.8;">
+      日常の写真はInstagram、近況はFacebookでも発信しています。お気軽にフォローください😊
+    </p>
+    <div class="sns-card-grid">
+
+      <a href="https://www.instagram.com/tokupapa1" target="_blank" class="sns-card insta">
+        <div class="sns-card-header">
+          <div class="sns-card-logo">📸</div>
+          <div>
+            <div class="sns-card-name">Instagram</div>
+            <div class="sns-card-handle">@tokupapa1</div>
+          </div>
+        </div>
+        <p class="sns-card-desc">日常の風景・ギター・三線・Apple製品・大阪の日々をゆるく発信中。写真でとくじぃの毎日をのぞいてみてください！</p>
+        <span class="sns-card-cta">📸 フォローする →</span>
+      </a>
+
+      <a href="https://www.facebook.com/profile.php?id=100082226764466" target="_blank" class="sns-card fb">
+        <div class="sns-card-header">
+          <div class="sns-card-logo">👥</div>
+          <div>
+            <div class="sns-card-name">Facebook</div>
+            <div class="sns-card-handle">tokupapa1</div>
+          </div>
+        </div>
+        <p class="sns-card-desc">リベシティ仲間や教育関係者との交流・近況報告はFacebookでも。友達申請・フォロー大歓迎です！</p>
+        <span class="sns-card-cta">👥 つながる →</span>
+      </a>
+
+      <a href="https://toku-jii.seesaa.net/" target="_blank" class="sns-card blog">
+        <div class="sns-card-header">
+          <div class="sns-card-logo">✍️</div>
+          <div>
+            <div class="sns-card-name">Seesaa Blog</div>
+            <div class="sns-card-handle">120歳まで元気なハッピーライフ</div>
+          </div>
+        </div>
+        <p class="sns-card-desc">Apple製品・メルカリ・資産運用・リベ大の学びなど、日々の発見をブログに記録しています。</p>
+        <span class="sns-card-cta">✍️ ブログを読む →</span>
+      </a>
+
+      <a href="https://note.com/tokupapa" target="_blank" class="sns-card note-c">
+        <div class="sns-card-header">
+          <div class="sns-card-logo">📓</div>
+          <div>
+            <div class="sns-card-name">note</div>
+            <div class="sns-card-handle">とくじぃの学び直しノート</div>
+          </div>
+        </div>
+        <p class="sns-card-desc">定年・リタイヤを見据えた深い思考と学び。教育現場での経験を活かしたコラムを発信中。</p>
+        <span class="sns-card-cta">📓 noteを読む →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ALL LINKS -->
+  <section>
+    <p class="section-label">All Links</p>
+    <h2>すべてのリンク</h2>
+    <div class="sns-wrap">
+      <a class="sns-btn blog" href="https://toku-jii.seesaa.net/" target="_blank">
+        <span class="btn-icon">✍️</span> ブログ
+      </a>
+      <a class="sns-btn note" href="https://note.com/tokupapa" target="_blank">
+        <span class="btn-icon">📝</span> note
+      </a>
+      <a class="sns-btn libe" href="https://libecity.com/user_profile/tIDww2xsBgTRyVTpdeEMbkLp6Bm2" target="_blank">
+        <span class="btn-icon">🦁</span> リベシティ
+      </a>
+      <a class="sns-btn insta" href="https://www.instagram.com/tokupapa1" target="_blank">
+        <span class="btn-icon">📸</span> Instagram
+      </a>
+      <a class="sns-btn fb" href="https://www.facebook.com/profile.php?id=100082226764466" target="_blank">
+        <span class="btn-icon">👥</span> Facebook
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p style="margin-bottom:8px;font-size:1.1rem;color:white;font-weight:700;">とくじぃ 🦁</p>
+  <p>120歳まで元気なハッピーライフ</p>
+  <p style="margin-top:12px;">
+    <a href="https://toku-jii.seesaa.net/" style="color:rgba(255,255,255,0.6);text-decoration:none;margin:0 8px;">Blog</a>
+    <a href="https://note.com/tokupapa" style="color:rgba(255,255,255,0.6);text-decoration:none;margin:0 8px;">note</a>
+    <a href="https://www.instagram.com/tokupapa1" style="color:rgba(255,255,255,0.6);text-decoration:none;margin:0 8px;">Instagram</a>
+    <a href="https://www.facebook.com/profile.php?id=100082226764466" style="color:rgba(255,255,255,0.6);text-decoration:none;margin:0 8px;">Facebook</a>
+    <a href="https://libecity.com/user_profile/tIDww2xsBgTRyVTpdeEMbkLp6Bm2" style="color:rgba(255,255,255,0.6);text-decoration:none;margin:0 8px;">リベシティ</a>
+  </p>
+  <p style="margin-top:24px;">
+    <span style="display:inline-flex;align-items:center;gap:8px;background:#444;border-radius:6px;padding:6px 14px;font-size:0.82rem;">
+      <span style="color:rgba(255,255,255,0.7);">👁 訪問者数</span>
+      <span id="visit-count" style="color:#FF6B35;font-weight:700;font-size:0.95rem;">---</span>
+    </span>
+  </p>
+  <p style="margin-top:12px;font-size:0.75rem;">&copy; 2026 とくじぃ. All rights reserved.</p>
+</footer>
+<script>
+  fetch('https://api.counterapi.dev/v1/tokupapa-bot/homepage/up')
+    .then(r => r.json())
+    .then(d => {
+      const el = document.getElementById('visit-count');
+      if (el && d.count) el.textContent = Number(d.count).toLocaleString() + ' 人';
+    })
+    .catch(() => {});
+</script>
+
+</body>
+</html>

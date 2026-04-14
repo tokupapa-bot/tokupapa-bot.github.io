@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とくじぃ × リベシティ ClaudeCode活用 まとめ</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: #F4F6FA;
+  color: #1a1a2e;
+  font-size: 17px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: url('miyakojima_sea.jpg') center center / cover no-repeat;
+  padding: 64px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 40%, rgba(99,179,237,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(154,215,254,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 90%, rgba(255,140,66,0.07) 0%, transparent 55%);
+}
+.hero-eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.85);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+  padding: 6px 22px; border-radius: 20px;
+  margin-bottom: 28px; position: relative;
+}
+.hero-avatar {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: linear-gradient(135deg, #FF8C42, #E05500);
+  border: 3px solid rgba(255,255,255,0.3);
+  margin: 0 auto 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 48px); font-weight: 800;
+  color: #fff; line-height: 1.25;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  position: relative;
+}
+.hero h1 span {
+  background: linear-gradient(90deg, #FF8C42, #FFD580);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  margin-top: 16px; font-size: 17px;
+  color: rgba(255,255,255,0.7); position: relative; line-height: 1.7;
+}
+.hero-stats-bar {
+  display: flex; justify-content: center; gap: 0;
+  margin-top: 40px; position: relative;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px; overflow: hidden;
+  max-width: 560px; margin-left: auto; margin-right: auto;
+}
+.hero-stat {
+  flex: 1; padding: 18px 12px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; }
+.hero-stat-num span { font-size: 15px; font-weight: 600; }
+.hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 5px; font-weight: 600; letter-spacing: 0.05em; }
+
+/* ===== SECTION ===== */
+.section {
+  max-width: 960px; margin: 0 auto;
+  padding: 60px 24px 72px;
+}
+.section-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+  color: #888; text-transform: uppercase; margin-bottom: 10px;
+}
+.section-heading {
+  font-size: 28px; font-weight: 800; color: #1a1a2e;
+  margin-bottom: 36px; line-height: 1.3;
+}
+.section-heading small {
+  display: block; font-size: 15px; font-weight: 500;
+  color: #888; margin-top: 6px;
+}
+.section-divider {
+  border: none; border-top: 1px solid #e5e5e5;
+  max-width: 960px; margin: 0 auto;
+}
+
+/* ===== SHOWCASE CARDS ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: #fff;
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 3px 20px rgba(0,0,0,0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none; color: inherit;
+  display: flex; flex-direction: column;
+  border: 1px solid #eee;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+}
+.card-thumb {
+  height: 150px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px;
+}
+.card-thumb.green  { background: linear-gradient(135deg, #27c99f, #1a9e7d); }
+.card-thumb.orange { background: linear-gradient(135deg, #FF8C42, #E05500); }
+.card-thumb.blue   { background: linear-gradient(135deg, #5378e9, #3456c7); }
+.card-thumb.teal   { background: linear-gradient(135deg, #00bcd4, #0097a7); }
+.card-thumb.purple { background: linear-gradient(135deg, #9c6fdc, #7c4dbd); }
+.card-num {
+  position: absolute; top: 12px; left: 14px;
+  background: rgba(0,0,0,0.25);
+  color: #fff; font-size: 11px; font-weight: 800;
+  padding: 4px 10px; border-radius: 12px;
+  letter-spacing: 0.06em;
+}
+.card-coming {
+  position: absolute; top: 12px; right: 14px;
+  background: rgba(0,0,0,0.35);
+  color: rgba(255,255,255,0.8); font-size: 10px; font-weight: 700;
+  padding: 4px 10px; border-radius: 12px; letter-spacing: 0.06em;
+}
+.card-body { padding: 20px 22px 18px; flex: 1; display: flex; flex-direction: column; }
+.card-category {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.card-category.green  { color: #1a9e7d; }
+.card-category.orange { color: #E05500; }
+.card-category.blue   { color: #5378e9; }
+.card-category.teal   { color: #0097a7; }
+.card-category.purple { color: #7c4dbd; }
+.card-title { font-size: 17px; font-weight: 800; color: #1a1a2e; line-height: 1.3; margin-bottom: 10px; }
+.card-desc  { font-size: 14px; color: #666; line-height: 1.7; flex: 1; }
+.card-footer {
+  padding: 12px 22px;
+  border-top: 1px solid #f0f0f0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-tag {
+  font-size: 12px; color: #999; display: flex; align-items: center; gap: 6px;
+}
+.card-tag-dot { width: 7px; height: 7px; border-radius: 50%; }
+.card-tag-dot.live   { background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+.card-tag-dot.soon   { background: #d1d5db; }
+.card-arrow { font-size: 18px; color: #ccc; transition: color 0.2s; }
+.card:hover .card-arrow { color: #888; }
+.card.coming-soon { opacity: 0.62; pointer-events: none; }
+
+/* ===== SLIDE GALLERY ===== */
+.slides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(660px, 1fr));
+  gap: 20px;
+}
+.slide-item {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  border: 1px solid #e5e8f0;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.slide-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.16);
+}
+.slide-item img {
+  width: 100%; display: block;
+}
+.slide-label {
+  padding: 12px 18px;
+  font-size: 13px; font-weight: 700; color: #555;
+  border-top: 1px solid #f0f0f0;
+  background: #fafbfc;
+}
+.slide-comment {
+  padding: 0 18px 18px;
+  background: #fafbfc;
+}
+.slide-comment-block {
+  padding-top: 12px;
+  border-top: 1px dashed #e0e4f0;
+  margin-top: 2px;
+}
+.slide-comment-date {
+  font-size: 12px; font-weight: 800; color: #5378e9;
+  letter-spacing: 0.06em; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.comment-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; letter-spacing: 0.05em;
+}
+.comment-badge.hosted { background: #e8f5e9; color: #2e7d32; }
+.comment-badge.joined { background: #e3f2fd; color: #1565c0; }
+.slide-comment p {
+  font-size: 13px; color: #555; line-height: 1.85; margin: 0;
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.88);
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 100%; max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 16px 64px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+  position: fixed; top: 20px; right: 24px;
+  color: #fff; font-size: 36px; cursor: pointer;
+  line-height: 1; opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.lightbox-close:hover { opacity: 1; }
+.lightbox-nav {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  color: #fff; font-size: 48px; cursor: pointer;
+  opacity: 0.7; transition: opacity 0.2s; user-select: none;
+  padding: 8px 16px;
+}
+.lightbox-nav:hover { opacity: 1; }
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
+.lightbox-counter {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.7); font-size: 14px; font-weight: 600;
+}
+
+/* ===== TIMELINE ===== */
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 8px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, #1a1a2e, #5378e9, #27c99f, #FF8C42);
+  border-radius: 2px;
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-dot {
+  position: absolute; left: -32px; top: 8px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; border: 3px solid #5378e9;
+  box-shadow: 0 2px 8px rgba(83,120,233,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; z-index: 1;
+}
+.tl-dot.done { border-color: #27c99f; background: #27c99f; }
+.tl-dot.done::after {
+  content: '✓';
+  color: #fff; font-size: 9px; font-weight: 800;
+}
+.tl-dot.upcoming { border-color: #FF8C42; background: #fff2e9; }
+.tl-dot.upcoming::after {
+  content: '▶';
+  color: #FF8C42; font-size: 7px;
+}
+
+.tl-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  border: 1px solid #eee;
+  border-left: 4px solid #5378e9;
+}
+.tl-card.done  { border-left-color: #27c99f; }
+.tl-card.upcoming { border-left-color: #FF8C42; background: #fffaf6; }
+
+.tl-date {
+  font-size: 12px; font-weight: 700; color: #5378e9;
+  letter-spacing: 0.08em; margin-bottom: 6px;
+}
+.tl-card.done .tl-date { color: #1a9e7d; }
+.tl-card.upcoming .tl-date { color: #E05500; }
+
+.tl-title {
+  font-size: 17px; font-weight: 800; color: #1a1a2e;
+  margin-bottom: 8px; line-height: 1.3;
+}
+.tl-meta {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;
+}
+.tl-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #F4F6FA; border: 1px solid #e0e4f0;
+  color: #555; font-size: 12px; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+}
+.tl-desc { font-size: 14px; color: #666; line-height: 1.7; }
+.tl-card.upcoming .tl-desc { color: #888; font-style: italic; }
+.tl-members {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px dashed #e5e8f0;
+}
+.tl-member {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #f4f6fa; border: 1px solid #e0e4f0;
+  border-radius: 20px; padding: 5px 14px 5px 6px;
+  font-size: 13px; color: #444; font-weight: 600;
+}
+.tl-member-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: #fff; font-weight: 800;
+  flex-shrink: 0;
+}
+.tl-slide-img {
+  width: 100%; display: block;
+  border-radius: 10px; margin: 14px 0 4px;
+  border: 1px solid #e5e8f0;
+}
+.tl-banner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+.tl-banner-date {
+  font-size: 14px; color: rgba(255,255,255,0.6);
+  font-weight: 700; letter-spacing: 0.12em; margin-bottom: 5px;
+}
+.tl-banner-title {
+  font-size: 17px; font-weight: 800; color: #fff; line-height: 1.3;
+}
+.slide-crop-col {
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 4px 0 14px;
+  border: 1px solid #e5e8f0;
+}
+.slide-crop-col img { width: 300%; display: block; }
+.slide-crop-col.col-0 img { margin-left: 0; }
+.slide-crop-col.col-1 img { margin-left: -100%; }
+.slide-img-wrap {
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 14px 0 4px;
+  border: 1px solid #e5e8f0;
+}
+.slide-img-wrap img {
+  width: 100%; display: block;
+  margin-top: -7%;
+}
+.slide-icon-small {
+  width: 160px; height: 160px;
+  border-radius: 12px;
+  margin: 4px 0 14px;
+  border: 1px solid #e5e8f0;
+  background-image: url('slides/slide_20.png');
+  background-size: 300% auto;
+  background-repeat: no-repeat;
+}
+.slide-icon-small.col-0 { background-position: 0% 30%; }
+.slide-icon-small.col-1 { background-position: 50% 30%; }
+.tl-icon-float {
+  float: right;
+  width: 130px; height: 130px;
+  border-radius: 14px;
+  border: 2px solid #e5e8f0;
+  object-fit: cover;
+  margin: 0 0 12px 18px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+}
+.tl-icon-clearfix::after { content: ''; display: table; clear: both; }
+
+/* ===== SECTION BG (alt) ===== */
+.section-alt {
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  padding: 56px 0;
+}
+.section-alt .section { padding-top: 0; padding-bottom: 0; }
+.section-alt .section-title { color: rgba(255,255,255,0.5); }
+.section-alt .section-heading { color: #fff; }
+.section-alt .section-heading small { color: rgba(255,255,255,0.5); }
+
+/* Nav */
+.nav {
+  background: rgba(26,26,46,0.97);
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 56px;
+}
+.nav-logo { color: #fff; font-size: 14px; font-weight: 800; letter-spacing: 0.04em; }
+.nav-logo span { color: #FF8C42; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 600;
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center; padding: 32px 16px;
+  color: #bbb; font-size: 13px;
+  border-top: 1px solid #e5e5e5; background: #fff;
+  line-height: 1.8;
+}
+footer a { color: #FF8C42; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">とくじぃ × <span>ClaudeCode</span></div>
+  <div class="nav-links">
+    <a href="#history">開催記録</a>
+    <a href="#upcoming">今後の予定</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">リベシティ オフ会 ／ ClaudeCode 活用まとめ</div>
+  <img class="hero-avatar" src="sanshin-icon.png" alt="とくじぃ">
+  <h1>とくじぃの<br><span>リベシティ</span> 活動まとめ</h1>
+  <p class="hero-sub">今年65歳の定年を迎える・・・プログラミングの知識は、ほぼゼロですが、<br>ClaudeCodeを使って、仕事や日常のさまざまな「面倒なこと」を自動化・効率化してきました。<br>今日はその成果を、ありのままにお伝えします。</p>
+  <div class="hero-stats-bar">
+    <div class="hero-stat">
+      <div class="hero-stat-num">7<span>回</span></div>
+      <div class="hero-stat-label">オフ会開催</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Claude成果物</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">0<span>円</span></div>
+      <div class="hero-stat-label">ホスティング費用</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">0<span>行</span></div>
+      <div class="hero-stat-label">自分で書いたコード</div>
+    </div>
+  </div>
+</div>
+
+<!-- 開催記録 SECTION -->
+<div class="section" id="history">
+  <div class="section-title">MEETUP HISTORY</div>
+  <div class="section-heading">
+    オフ会 開催記録
+    <small>2025年1月〜現在まで、累計7回開催</small>
+  </div>
+
+  <div style="margin-top: 52px;">
+  <div class="timeline">
+
+    <!-- BBQ -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2025年3月23日（日）</div>
+          <div class="tl-banner-title">🍖 学長と食べる 花より団子BBQオフ会</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">🌸 春のBBQ</span>
+          <span class="tl-badge">👨‍🏫 学長参加</span>
+        </div>
+        <div class="tl-desc">リベ大学長も参加した特別BBQオフ会。食べながら学びながら、仲間との交流を楽しんだ。</div>
+      </div>
+    </div>
+
+    <!-- 同期会 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2025年7月27日</div>
+          <div class="tl-banner-title">🎉 リベシティ同期会（2025年1月入会組）</div>
+        </div>
+        <div class="tl-desc">2025年1月にリベシティへ入会した同期メンバーとのオフ会。まだClaudeCodeとの出会い前、交流とつながりを深めた会。</div>
+      </div>
+    </div>
+
+    <!-- 3/29 ClaudeCode雑談会 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年3月29日</div>
+          <div class="tl-banner-title">🤖 Claude Code おしゃべり会（初回）</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">🚀 記念すべき第1回</span>
+          <span class="tl-badge">👥 8名参加</span>
+          <span class="tl-badge">📍 梅田オフィス</span>
+        </div>
+        <img class="tl-icon-float" src="8VOkG2MxfHj2MfnhJGeT.png" alt="3/29 アイコン">
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">も</span>ももれん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">か</span>かのん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">と</span>とり</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#00bcd4,#0097a7)">て</span>てるみん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#e57373,#c62828)">マ</span>マイホームパパ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#f06292,#ad1457)">き</span>きーやん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#aed581,#558b2f)">タ</span>タニ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#ffa726,#e65100)">み</span>みかん</span>
+        </div>
+        <div class="tl-desc">当日思いついて、2日前にインストールしたばかりのClaude Codeについて、自分も勉強したいと思いオフ会を開催させていただきました。当日は梅田オフィスの予約も取れないくらい満員でしたので、梅田オフィスにいてClaude Codeに興味のあるリベ民に集まっていただきました。インストール前の方が多く、そのお手伝いができました。また、Claudeに作ってもらったメルカリ出品リストをお見せしたら、みなさん興味津々でした。参加者の中にWEBデザイナーの方がいて、いろんなアドバイスをもらうことができ、メルカリ出品リストもレベルアップしたものになりました。参加者の皆さんの熱気はすごかったです。これからもっとオフ会を開催したいと思いました。</div>
+      </div>
+    </div>
+
+    <!-- 4/5 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月5日</div>
+          <div class="tl-banner-title">💬 ClaudeCode初心者 わいわい雑談会</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 9名参加</span>
+          <span class="tl-badge">📍 四ツ橋オフィス</span>
+        </div>
+        <img class="tl-icon-float" src="0405icon.png" alt="4/5 アイコン">
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">そ</span>そわか</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">ど</span>どりーむ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">T</span>T-take</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#00bcd4,#0097a7)">お</span>おふじ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#e57373,#c62828)">ら</span>らいジジ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#f06292,#ad1457)">み</span>みみみ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#aed581,#558b2f)">す</span>すず</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#ffa726,#e65100)">k</span>kona</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#78909c,#37474f)">こ</span>こじま</span>
+        </div>
+        <div class="tl-desc">参加者のうちClaude Codeインストール済みの方は私を含めて3名。残りの皆さんはこのオフ会でインストールしたいという方たちでした。まだまだこれからの方が多いことに驚きました。どこからダウンロードすればよいのか、そして画面が進むごとに「これでいいの？」と不安そうな顔をされていて、やっぱりそばに誰かいることが大切だということを実感しました。こんなすごい発明、まさに産業革命のまっただ中にいるということをもっと多くのリベの方々にお伝えしたいと思いました。今回はオフ会の進行をスムーズにするためにパワポも作り込んでいきました。</div>
+      </div>
+    </div>
+
+    <!-- 4/6 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月6日</div>
+          <div class="tl-banner-title">🛠 ClaudeCode 導入お助けオフ会</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 3名参加</span>
+          <span class="tl-badge">📍 四ツ橋オフィス</span>
+        </div>
+        <div class="slide-img-wrap"><img src="slides/slide_21.png" alt="4/6 記念写真"></div>
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">s</span>saa（さあ）</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">え</span>えっちゃん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">も</span>ももかつ子</span>
+        </div>
+        <div class="tl-desc">お一人はインストールしたばかり、もうお一人はインストールからお手伝いしました。実際にClaude Coworkで作ってもらったエクセルのメルカリ出品リストを見てもらったら、めちゃくちゃ感動されていました。エージェント型AIのすごさを実感していただけたと思います。ノウハウ図書館の記事を参考にしながら、インストール後の初期設定まで一緒に行い、Claude in Chromeのインストールまでお手伝いしたので、自分にとってもこれからオフ会を開催する際の経験値が上がったように感じます。まだまだサポートを必要としている方はたくさんいらっしゃるのではないかと感じました。</div>
+      </div>
+    </div>
+
+    <!-- 4/13 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月13日</div>
+          <div class="tl-banner-title">🤝 ClaudeCode 導入お手伝いオフ会</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 2名参加</span>
+          <span class="tl-badge">📍 四ツ橋オフィス</span>
+        </div>
+        <div class="slide-img-wrap"><img src="slides/slide_22.png" alt="4/13 開催実績"></div>
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">い</span>いく</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">ざ</span>ざき</span>
+        </div>
+        <div class="tl-desc">リベ四ツ橋オフィスにてClaudeオフ会を開催しました！今回はお二人の方にご参加いただき、少人数ならではのじっくりと深い時間を過ごすことができました。自己紹介を交えながら、私自身が実践している「Claude Cowork」や「Claude Code」の具体的な活用事例をデモでお見せしたところ、Claudeの持つ可能性について熱く語り合う展開になりました。「教える」だけでなく、参加者の皆さんの視点に触れることで、私自身にとっても非常に大きな学びと刺激をいただいた1日となりました。ご参加いただいたお二人、本当にありがとうございました！</div>
+      </div>
+    </div>
+
+    <!-- 4/20 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月20日</div>
+          <div class="tl-banner-title">📦 ClaudeCode ＆ メルカリ活用オフ会</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 6名参加</span>
+          <span class="tl-badge">📍 梅田オフィス</span>
+          <span class="tl-badge">🛍 メルカリ活用</span>
+        </div>
+        <div class="slide-img-wrap"><img src="slides/slide_23.png" alt="4/20 開催実績"></div>
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">み</span>みご</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">は</span>はづき</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">や</span>やすこ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#00bcd4,#0097a7)">き</span>きよちゃん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#e57373,#c62828)">ま</span>まーこ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#f06292,#ad1457)">め</span>めぐにゃん</span>
+        </div>
+        <div class="tl-desc">梅田オフィスにて、5回目となるClaude Codeオフ会を開催しました。集客には毎回苦戦しており、当日までお申し込みがゼロという不安な状況でしたが、最終的には定員いっぱいの方にご参加いただくことができました。今回はメルカリを愛用されている方が多く、私が実践している「Claudeを活用した不用品販売の効率化」についてお話ししたところ、非常に喜んでいただけたのが印象的でした。教える側ではありますが、私自身も参加者の皆さんから多くの気づきをいただき、非常に充実した時間となりました。一歩踏み出して開催して、本当に良かったです。</div>
+      </div>
+    </div>
+
+    <!-- 4/26 つまずきラボ -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月26日</div>
+          <div class="tl-banner-title">🔰 ClaudeCode 初操作 つまずきラボ @京都</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">🆕 初心者向け</span>
+          <span class="tl-badge">📍 京都オフィス</span>
+          <span class="tl-badge">👀 参加</span>
+        </div>
+        <div class="slide-img-wrap"><img src="slides/slide_24.png" alt="4/26 開催実績"></div>
+        <div class="tl-desc">Claude Codeを使い、簡単な英単語帳やポモドーロタイマー作りをみんなで一緒にやりました。プロンプトも順を追って作業が進むよう事前に準備していただいており、すばらしかったです。まだ何に使えばよいかわからなかったという方も、実際の作成作業を通してClaudeを使うことを体感できたと喜んでおられたので、オフ会運営の勉強にもなりました。</div>
+      </div>
+    </div>
+
+    <!-- 4/26 京都勉強会 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月26日</div>
+          <div class="tl-banner-title">📚 ClaudeCode 勉強会 @京都</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 11名参加</span>
+          <span class="tl-badge">📍 京都オフィス</span>
+        </div>
+        <div class="slide-img-wrap"><img src="slides/slide_24.png" alt="4/26 開催実績"></div>
+        <div class="tl-desc">京都オフィスにて2回目となるオフ会を開催しました。今回は「Claude Codeをインストールしたけれど、具体的にどう使いこなせばいいか迷っている」という声が多く聞かれました。そこで、私が実際にメルカリの出品や管理でどのようにClaudeを活用しているかをお話ししたところ、皆さん非常に興味深く聞いてくださり、「具体的なイメージが湧いた」と嬉しい感想を多くいただきました。ニーズの強さを実感したので、次回はさらに踏み込んで「メルカリ導入・活用」に特化したオフ会を企画しようと思います。ご参加いただいた皆様、ありがとうございました！</div>
+      </div>
+    </div>
+
+    <!-- 4/27 梅田 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年4月27日（最新回）</div>
+          <div class="tl-banner-title">🛒 ClaudeCode ＆ メルカリ活用オフ会 @梅田</div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 8名参加</span>
+          <span class="tl-badge">📍 大阪・梅田</span>
+          <span class="tl-badge">🏆 最新回</span>
+        </div>
+        <div class="slide-img-wrap"><img src="slides/slide_25.png" alt="4/27 開催実績"></div>
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">ナ</span>ナミ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">ヤ</span>ヤヨっぺ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">ま</span>まさやん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#00bcd4,#0097a7)">ま</span>ままこ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#e57373,#c62828)">ポ</span>ポメポメチロル</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#aed581,#558b2f)">み</span>みこ（途中退席）</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#ffa726,#e65100)">か</span>かぶぞう</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#78909c,#37474f)">と</span>ともまる</span>
+        </div>
+        <div class="tl-desc">梅田オフィスにて7回目となるClaudeオフ会を開催しました。今回は「メルカリ活用法」に特化した内容だったため、不用品販売やせどりに取り組む熱心な方々が集まってくださいました。中には、学長の言葉をきっかけに、その日のうちにリベ大入会・Mac購入・Claude導入まで済ませて参加された、驚くほど前向きな方もおられ、会場は熱気に包まれました。私自身の成果物だけでなく、それを完成させるまでの「プロンプトのやり取り」をありのままにお見せしたところ、Claudeの持つ可能性に深く感動していただけました。この感動をもっと広めていきたいと痛感し、5月も引き続きClaudeをメインテーマにオフ会を開催することを決めました！</div>
+      </div>
+    </div>
+
+  </div><!-- end timeline -->
+  </div><!-- end margin wrapper -->
+</div><!-- end history section -->
+
+<hr class="section-divider">
+
+<!-- 今後の予定 SECTION -->
+<div class="section" id="upcoming">
+  <div class="section-title">UPCOMING</div>
+  <div class="section-heading">
+    今後のオフ会予定
+    <small>テーマはどんどん広がっています</small>
+  </div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot upcoming"></div>
+      <div class="tl-card upcoming">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年5月（予定）</div>
+          <div class="tl-banner-title">🛍 メルカリ販売 導入オフ会</div>
+        </div>
+        <div class="tl-desc">メルカリを始めたい・もっと売りたい人向けの実践オフ会。出品のコツをClaudeCode活用と合わせてお伝えします。</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot upcoming"></div>
+      <div class="tl-card upcoming">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年6月（予定）</div>
+          <div class="tl-banner-title">🏛 実家じまい・墓じまい・仏壇じまい 体験談を聞く会</div>
+        </div>
+        <div class="tl-desc">人生後半の大きな課題「実家・墓・仏壇の整理」。体験者から学び、準備につなげる会。</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot upcoming"></div>
+      <div class="tl-card upcoming">
+        <div class="tl-banner">
+          <div class="tl-banner-date">2026年7月（予定）</div>
+          <div class="tl-banner-title">💭 定年後の夢を語り合う会</div>
+        </div>
+        <div class="tl-desc">定年という人生の転換点を前に、やりたいこと・目指したいことを語り合う会。仲間とビジョンを描く時間。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>とくじぃ × ClaudeCode 活動まとめ ／ リベシティ オフ会 記録</p>
+  <p style="margin-top:6px;">
+    <a href="https://tokupapa.com" target="_blank">🌐 tokupapa.com</a>
+    &nbsp;／&nbsp;
+    <a href="index.html">📋 成果物一覧へ</a>
+  </p>
+  <p style="margin-top:8px; color:#ccc; font-size:12px;">最終更新：2026年4月28日</p>
+</footer>
+
+</body>
+</html>
