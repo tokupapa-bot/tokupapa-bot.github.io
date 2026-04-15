@@ -844,10 +844,22 @@
     <a href="https://libecity.com/user_profile/tIDww2xsBgTRyVTpdeEMbkLp6Bm2" style="color:rgba(255,255,255,0.6);text-decoration:none;margin:0 8px;">リベシティ</a>
   </p>
   <p style="margin-top:24px;">
-    <img src="https://visitor-badge.laobi.icu/badge?page_id=tokupapa-bot.tokupapa-bot.github.io&left_color=%23444444&right_color=%23FF6B35&left_text=VISITORS" alt="アクセスカウンター" style="height:24px;">
+    <span style="display:inline-flex;align-items:center;gap:8px;background:#444;border-radius:6px;padding:6px 14px;font-size:0.82rem;">
+      <span style="color:rgba(255,255,255,0.7);">👁 訪問者数</span>
+      <span id="visit-count" style="color:#FF6B35;font-weight:700;font-size:0.95rem;">---</span>
+    </span>
   </p>
   <p style="margin-top:12px;font-size:0.75rem;">&copy; 2026 とくじぃ. All rights reserved.</p>
 </footer>
+<script>
+  fetch('https://api.counterapi.dev/v1/tokupapa-bot/homepage/up')
+    .then(r => r.json())
+    .then(d => {
+      const el = document.getElementById('visit-count');
+      if (el && d.count) el.textContent = Number(d.count).toLocaleString() + ' 人';
+    })
+    .catch(() => {});
+</script>
 
 </body>
 </html>
