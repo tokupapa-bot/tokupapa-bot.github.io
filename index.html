@@ -475,6 +475,63 @@
     .article-title { font-size: 0.95rem; font-weight: 700; line-height: 1.5; }
     .article-link { font-size: 0.8rem; font-weight: 700; color: var(--gray); margin-top: auto; }
 
+    /* ===== ARTICLE LIST ===== */
+    .year-group { margin-bottom: 32px; }
+    .year-header {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 2px solid var(--primary-pale);
+      user-select: none;
+    }
+    .year-header .toggle-icon { font-size: 1rem; transition: transform 0.2s; }
+    .year-header.open .toggle-icon { transform: rotate(90deg); }
+    .month-group { margin: 12px 0 0 16px; }
+    .month-header {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #555;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      user-select: none;
+    }
+    .month-header .toggle-icon { font-size: 0.85rem; transition: transform 0.2s; }
+    .month-header.open .toggle-icon { transform: rotate(90deg); }
+    .article-list-items { padding: 8px 0 8px 20px; }
+    .article-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f0f0;
+      text-decoration: none;
+      color: #333;
+      line-height: 1.5;
+    }
+    .article-list-item:hover .al-title { text-decoration: underline; color: var(--primary); }
+    .al-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .al-badge.note-badge  { background: #E6FAF8; color: #2FC4B5; }
+    .al-badge.seesaa-badge { background: var(--primary-pale); color: var(--primary); }
+    .al-title { font-size: 0.9rem; }
+    #rss-loading { color: #999; text-align: center; padding: 30px; font-size: 0.9rem; }
+    #rss-error   { color: #c0392b; text-align: center; padding: 20px; font-size: 0.9rem; }
+
     /* ===== FOOTER ===== */
     footer {
       background: var(--dark);
@@ -746,6 +803,91 @@
 
     </div>
   </section>
+
+  <!-- ARTICLE LIST -->
+  <section id="article-list-section">
+    <p class="section-label">Article Archive</p>
+    <h2>記事一覧 📚</h2>
+    <p style="color:#555;font-size:0.92rem;margin-bottom:24px;line-height:1.8;">
+      ブログ・noteに投稿した記事を年月別にまとめています。タイトルをクリックすると元の記事に飛びます。
+    </p>
+    <div id="rss-container">
+      <div id="rss-loading">📡 記事を読み込み中...</div>
+    </div>
+  </section>
+
+  <script>
+  (async function(){
+    const container = document.getElementById('rss-container');
+    const loading = document.getElementById('rss-loading');
+    try {
+      const res = await fetch('/api/rss');
+      if(!res.ok) throw new Error('fetch failed');
+      const items = await res.json();
+
+      // Group by year → month
+      const byYear = {};
+      items.forEach(item => {
+        const raw = item.date || '';
+        let y='不明', m='不明';
+        const iso = raw.match(/(\d{4})-(\d{2})/);
+        const rfc = raw.match(/(\d{1,2})\s+(\w{3})\s+(\d{4})/);
+        const jp  = raw.match(/(\d{4})年(\d{1,2})月/);
+        if(iso){  y=iso[1]; m=iso[2]+'月'; }
+        else if(rfc){ const ms=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; y=rfc[3]; m=String(ms.indexOf(rfc[2])+1).padStart(2,'0')+'月'; }
+        else if(jp){  y=jp[1]; m=jp[2].padStart(2,'0')+'月'; }
+        if(!byYear[y]) byYear[y]={};
+        if(!byYear[y][m]) byYear[y][m]=[];
+        byYear[y][m].push(item);
+      });
+
+      const years = Object.keys(byYear).sort((a,b)=>b-a);
+      let html='';
+      years.forEach((year,yi)=>{
+        const months = Object.keys(byYear[year]).sort((a,b)=>b.localeCompare(a));
+        const yOpen = yi===0 ? 'open' : '';
+        html += `<div class="year-group">
+          <div class="year-header ${yOpen}" onclick="toggleGroup(this)">
+            <span class="toggle-icon">▶</span>${year}年
+            <span style="font-size:0.75rem;color:#999;font-weight:400;">(${months.reduce((s,m)=>s+byYear[year][m].length,0)}件)</span>
+          </div>
+          <div class="year-body" style="display:${yOpen?'block':'none'}">`;
+        months.forEach((month,mi)=>{
+          const mOpen = yi===0 && mi===0 ? 'open' : '';
+          html += `<div class="month-group">
+            <div class="month-header ${mOpen}" onclick="toggleGroup(this)">
+              <span class="toggle-icon">▶</span>${month}
+              <span style="font-size:0.75rem;color:#bbb;">(${byYear[year][month].length}件)</span>
+            </div>
+            <div class="month-body" style="display:${mOpen?'block':'none'}">
+              <div class="article-list-items">`;
+          byYear[year][month].forEach(item=>{
+            const isNote = item.source==='note';
+            const badgeClass = isNote ? 'note-badge' : 'seesaa-badge';
+            const label = isNote ? 'note' : item.source;
+            const safeTitle = item.title.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            html += `<a href="${item.link}" target="_blank" rel="noopener" class="article-list-item">
+              <span class="al-badge ${badgeClass}">${label}</span>
+              <span class="al-title">${safeTitle}</span>
+            </a>`;
+          });
+          html += `</div></div></div>`;
+        });
+        html += `</div></div>`;
+      });
+
+      container.innerHTML = html;
+    } catch(e) {
+      container.innerHTML = '<div id="rss-error">記事の読み込みに失敗しました。しばらくしてから再読み込みしてください。</div>';
+    }
+  })();
+
+  function toggleGroup(el){
+    const body = el.nextElementSibling;
+    const isOpen = el.classList.toggle('open');
+    body.style.display = isOpen ? 'block' : 'none';
+  }
+  </script>
 
   <!-- SNS CARDS -->
   <section>
