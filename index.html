@@ -32,7 +32,7 @@
 
     /* ===== HEADER / HERO ===== */
     header {
-      background: linear-gradient(135deg, #FF7A2F 0%, #FF5722 40%, #E91E63 100%);
+      background: url('miyako-sea.jpg') center center / cover no-repeat;
       color: white;
       padding: 60px 24px 80px;
       text-align: center;
@@ -42,17 +42,16 @@
     header::before {
       content: '';
       position: absolute;
-      top: -60px; right: -60px;
-      width: 300px; height: 300px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 50%;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(0,90,130,0.52) 0%, rgba(0,50,90,0.42) 100%);
+      z-index: 0;
     }
     header::after {
       content: '';
       position: absolute;
       bottom: -80px; left: -40px;
       width: 240px; height: 240px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.04);
       border-radius: 50%;
     }
 
