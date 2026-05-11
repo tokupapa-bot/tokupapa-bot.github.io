@@ -32,7 +32,7 @@
 
     /* ===== HEADER / HERO ===== */
     header {
-      background: linear-gradient(135deg, #FF7A2F 0%, #FF5722 40%, #E91E63 100%);
+      background: url('画像/オフ会まとめ/miyakojima_sea.jpg') center center / cover no-repeat;
       color: white;
       padding: 60px 24px 80px;
       text-align: center;
@@ -42,18 +42,14 @@
     header::before {
       content: '';
       position: absolute;
-      top: -60px; right: -60px;
-      width: 300px; height: 300px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 50%;
+      inset: 0;
+      background: rgba(0,60,100,0.45);
     }
     header::after {
       content: '';
       position: absolute;
-      bottom: -80px; left: -40px;
-      width: 240px; height: 240px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 50%;
+      inset: 0;
+      background: rgba(0,0,0,0);
     }
 
     .avatar-wrap {
