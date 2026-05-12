@@ -367,7 +367,14 @@ body {
   font-weight: 700; letter-spacing: 0.12em; margin-bottom: 5px;
 }
 .tl-banner-title {
-  font-size: 17px; font-weight: 800; color: #fff; line-height: 1.3;
+  font-size: 17px; font-weight: 800; color: #fff; line-height: 1.3; flex: 1;
+}
+.tl-banner-stats {
+  text-align: right;
+  font-size: 12px; font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.7; white-space: nowrap;
+  flex-shrink: 0; margin-left: 12px;
 }
 .slide-crop-col {
   overflow: hidden;
@@ -497,7 +504,7 @@ footer a { color: #FF8C42; text-decoration: none; }
           <div class="hero-stat-label">参加</div>
         </div>
         <div class="hero-stat-sub">
-          <div class="hero-stat-num">7<span>回</span></div>
+          <div class="hero-stat-num">9<span>回</span></div>
           <div class="hero-stat-label">主催</div>
         </div>
       </div>
@@ -537,7 +544,7 @@ footer a { color: #FF8C42; text-decoration: none; }
   <div class="section-title">MEETUP HISTORY</div>
   <div class="section-heading">
     オフ会
-    <small>主催7回・参加4回・BBQ1回　すべての記録</small>
+    <small>主催9回・参加4回・BBQ1回　すべての記録</small>
   </div>
 
   <div style="margin-top: 52px;">
@@ -610,8 +617,13 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年3月29日</div>
-          <div class="tl-banner-title">🤖 Claude Code おしゃべり会（初回）</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年3月29日　第1回</div>
+              <div class="tl-banner-title">🤖 Claude Code おしゃべり会（初回）</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 8名</div><div>累積のべ 8名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">🚀 記念すべき第1回</span>
@@ -639,8 +651,13 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月5日</div>
-          <div class="tl-banner-title">💬 ClaudeCode初心者 わいわい雑談会</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年4月5日　第2回</div>
+              <div class="tl-banner-title">💬 ClaudeCode初心者 わいわい雑談会</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 9名</div><div>累積のべ 17名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">👥 9名参加</span>
@@ -668,8 +685,13 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月6日</div>
-          <div class="tl-banner-title">🛠 ClaudeCode 導入お助けオフ会</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年4月6日　第3回</div>
+              <div class="tl-banner-title">🛠 ClaudeCode 導入お助けオフ会</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 3名</div><div>累積のべ 20名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">👥 3名参加</span>
@@ -691,8 +713,13 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月13日</div>
-          <div class="tl-banner-title">🤝 ClaudeCode 導入お手伝いオフ会</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年4月13日　第4回</div>
+              <div class="tl-banner-title">🤝 ClaudeCode 導入お手伝いオフ会</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 2名</div><div>累積のべ 22名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">👥 2名参加</span>
@@ -713,8 +740,13 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月20日</div>
-          <div class="tl-banner-title">📦 ClaudeCode ＆ メルカリ活用オフ会</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年4月20日　第5回</div>
+              <div class="tl-banner-title">📦 ClaudeCode ＆ メルカリ活用オフ会</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 6名</div><div>累積のべ 28名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">👥 6名参加</span>
@@ -769,11 +801,16 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月26日</div>
-          <div class="tl-banner-title">📚 ClaudeCode 勉強会 @京都</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年4月26日　第6回</div>
+              <div class="tl-banner-title">📚 ClaudeCode 勉強会 @京都</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 8名</div><div>累積のべ 36名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
-          <span class="tl-badge">👥 7名参加</span>
+          <span class="tl-badge">👥 8名参加</span>
           <span class="tl-badge">📍 京都オフィス</span>
         </div>
         <div class="slide-img-wrap"><img src="画像/オフ会まとめ/スライド/slide_24.png" alt="4/26 開催実績"></div>
@@ -795,8 +832,13 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月27日（最新回）</div>
-          <div class="tl-banner-title">🛒 ClaudeCode ＆ メルカリ活用オフ会 @梅田</div>
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年4月27日　第7回</div>
+              <div class="tl-banner-title">🛒 ClaudeCode ＆ メルカリ活用オフ会 @梅田</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 8名</div><div>累積のべ 44名</div></div>
+          </div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">👥 8名参加</span>
@@ -819,6 +861,72 @@ footer a { color: #FF8C42; text-decoration: none; }
       </div>
     </div>
 
+    <!-- 5/10 梅田 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年5月10日　第8回</div>
+              <div class="tl-banner-title">📊 ClaudeCode ＆ メルカリ活用事例報告会 @梅田</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 9名</div><div>累積のべ 53名</div></div>
+          </div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 9名参加</span>
+          <span class="tl-badge">📍 梅田オフィス</span>
+        </div>
+        <div class="slide-img-wrap no-crop"><img src="画像/オフ会記念写真/0510/記念写真イラスト化.png" alt="5/10 記念写真"></div>
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#f06292,#ad1457)">h</span>haha</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#00bcd4,#0097a7)">ま</span>まなみ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">ぴ</span>ぴーたん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">ナ</span>ナミ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">t</span>tomo</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#aed581,#558b2f)">ア</span>アボカド姉さん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#ffa726,#e65100)">ふ</span>ふるーる</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#78909c,#37474f)">わ</span>わーぷ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#e57373,#c62828)">サ</span>サニー</span>
+        </div>
+        <div class="tl-desc">日曜日の梅田オフィスはリベ民の皆さんで超満員。今回は「Claudeとメルカリ」をテーマに、熱い時間を過ごしました。私がClaudeで作成した「出品管理リスト」に興味津々の方が多く、AI活用の可能性を共有できました。せどりプレイヤーの方が多く、実践的な情報交換が非常に活発でした。皆さんの熱量に私自身も大きな刺激をいただいた一日でした。</div>
+      </div>
+    </div>
+
+    <!-- 5/11 四ツ橋 -->
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card done">
+        <div class="tl-banner">
+          <div style="display:flex; align-items:flex-start; gap:12px;">
+            <div style="flex:1;">
+              <div class="tl-banner-date">2026年5月11日　第9回</div>
+              <div class="tl-banner-title">📊 ClaudeCode ＆ メルカリ活用事例報告会 @四ツ橋</div>
+            </div>
+            <div class="tl-banner-stats"><div>参加人数 7名</div><div>累積のべ 60名</div></div>
+          </div>
+        </div>
+        <div class="tl-meta">
+          <span class="tl-badge">👥 7名参加</span>
+          <span class="tl-badge">📍 四ツ橋オフィス</span>
+        </div>
+        <div class="slide-img-wrap no-crop"><img src="画像/オフ会記念写真/0511/記念写真イラスト化.png" alt="5/11 記念写真"></div>
+        <div class="tl-members">
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#f06292,#ad1457)">さ</span>さおりん</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#5378e9,#3456c7)">ヒ</span>ヒデ</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#27c99f,#1a9e7d)">り</span>りか</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#9c6fdc,#7c4dbd)">k</span>key</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#aed581,#558b2f)">プ</span>プラント</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#00bcd4,#0097a7)">ジ</span>ジャック</span>
+          <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#e57373,#c62828)">1</span>1(ワン)</span>
+        </div>
+        <div class="tl-desc">四ツ橋オフィスでオフ会を開催しました。午前中の落ち着いた雰囲気の中、少人数ならではの濃い時間を過ごせました。Claude Codeの活用例として、メルカリ出品リストや仕事用の請求書アプリなど実戦的な事例を紹介したところ、「そんなことまでできるの？」と驚きの声が上がりました。技術的な話はもちろん、純粋に「おしゃべりが楽しかった」と言っていただける温かい会になりました。少人数でじっくり語り合えたことで、AI活用のヒントと元気を共有できた素晴らしい時間でした！</div>
+      </div>
+    </div>
+
   </div><!-- end timeline -->
   </div><!-- end margin wrapper -->
 </div><!-- end history section -->
@@ -834,30 +942,6 @@ footer a { color: #FF8C42; text-decoration: none; }
   </div>
 
   <div class="timeline">
-
-    <!-- 5/10 -->
-    <div class="tl-item">
-      <div class="tl-dot upcoming"></div>
-      <div class="tl-card upcoming">
-        <div class="tl-banner">
-          <div class="tl-banner-date">2026年5月10日（日）</div>
-          <div class="tl-banner-title">📊 ClaudeCode 活用事例報告会 @梅田オフィス</div>
-        </div>
-        <div class="tl-desc">内容・詳細は調整中です。お楽しみに！</div>
-      </div>
-    </div>
-
-    <!-- 5/11 -->
-    <div class="tl-item">
-      <div class="tl-dot upcoming"></div>
-      <div class="tl-card upcoming">
-        <div class="tl-banner">
-          <div class="tl-banner-date">2026年5月11日（月）</div>
-          <div class="tl-banner-title">📊 ClaudeCode 活用事例報告会 @四ツ橋オフィス</div>
-        </div>
-        <div class="tl-desc">内容・詳細は調整中です。お楽しみに！</div>
-      </div>
-    </div>
 
     <div class="tl-item">
       <div class="tl-dot upcoming"></div>
@@ -902,7 +986,7 @@ footer a { color: #FF8C42; text-decoration: none; }
     &nbsp;／&nbsp;
     <a href="index.html">📋 成果物一覧へ</a>
   </p>
-  <p style="margin-top:8px; color:#ccc; font-size:12px;">最終更新：2026年4月28日</p>
+  <p style="margin-top:8px; color:#ccc; font-size:12px;">最終更新：2026年5月12日</p>
 </footer>
 
 </body>
