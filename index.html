@@ -496,6 +496,50 @@
     }
     .domain-note .dn-icon { font-size: 1.4rem; flex-shrink: 0; }
 
+
+    /* ── Article Accordion Timeline ── */
+    .acc-year { margin-bottom: 8px; }
+    .acc-year-btn {
+      width: 100%; display: flex; align-items: center; gap: 10px;
+      background: var(--primary-pale); border: none; border-radius: 10px;
+      padding: 13px 18px; font-size: 1rem; font-weight: 700;
+      color: var(--primary); cursor: pointer; text-align: left;
+      transition: background .2s;
+    }
+    .acc-year-btn:hover { background: #ffe0cc; }
+    .acc-year-body { padding: 8px 0 4px 18px; }
+    .acc-month { margin-bottom: 5px; }
+    .acc-month-btn {
+      width: 100%; display: flex; align-items: center; gap: 8px;
+      background: white; border: 1.5px solid #e5e7eb; border-radius: 8px;
+      padding: 8px 14px; font-size: 0.88rem; font-weight: 700;
+      color: #374151; cursor: pointer; text-align: left;
+      transition: border-color .2s;
+    }
+    .acc-month-btn:hover { border-color: var(--primary); }
+    .acc-month-body { padding: 4px 0 2px 18px; }
+    .acc-article {
+      display: flex; align-items: baseline; gap: 8px;
+      padding: 7px 4px; border-bottom: 1px solid #f3f4f6;
+    }
+    .acc-article:last-child { border-bottom: none; }
+    .acc-count { margin-left: auto; font-size: 0.72rem; color: var(--gray); font-weight: 500; }
+    .acc-arrow { display: inline-block; transition: transform .25s; font-size: 0.65rem; }
+    .acc-arrow.open { transform: rotate(90deg); }
+    .acc-date { font-size: 0.72rem; color: #9CA3AF; font-weight: 600; white-space: nowrap; min-width: 30px; }
+    .acc-badge {
+      display: inline-block; font-size: 0.63rem; font-weight: 700;
+      padding: 1px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+    }
+    .acc-badge.note { background: #E6FAF8; color: #2FC4B5; }
+    .acc-badge.blog { background: #FFF3EC; color: #FF7A2F; }
+    .acc-badge.expo { background: #EFF6FF; color: #3B82F6; }
+    .acc-title {
+      font-size: 0.85rem; font-weight: 500; color: #1a1a1a;
+      text-decoration: none; line-height: 1.45; transition: color .2s;
+    }
+    .acc-title:hover { color: var(--primary); text-decoration: underline; }
+
   </style>
 </head>
 <body>
@@ -703,44 +747,202 @@
     </div>
   </section>
 
-  <!-- FEATURED ARTICLES -->
+  <!-- ARTICLE ACCORDION -->
   <section>
-    <p class="section-label">Featured Articles</p>
-    <h2>おすすめ記事 📰</h2>
-    <p style="color:#555;font-size:0.92rem;margin-bottom:20px;line-height:1.8;">
-      ブログとnoteで発信中の記事から、特におすすめの記事をご紹介します。
+    <p class="section-label">Recent Articles</p>
+    <h2>最新記事 📰</h2>
+    <p style="color:#555;font-size:0.92rem;margin-bottom:24px;line-height:1.8;">
+      年をクリックすると月が、月をクリックすると記事が表示されます。
     </p>
-    <div class="article-grid">
 
-      <a href="https://toku-jii.seesaa.net/" target="_blank" class="article-card">
-        <div class="article-thumb blog-thumb">🍎</div>
-        <div class="article-body">
-          <span class="article-platform blog">Seesaa Blog</span>
-          <span class="article-title">iPhoneの買い替えなら、今でしょ！Apple製品オトクな購入方法</span>
-          <span class="article-link">ブログで読む →</span>
+    <!-- 2026年 -->
+    <div class="acc-year">
+      <button class="acc-year-btn" onclick="toggleAcc(this)">
+        <span class="acc-arrow">▶</span> 2026年
+        <span class="acc-count">5件</span>
+      </button>
+      <div class="acc-year-body" style="display:none">
+
+        <div class="acc-month">
+          <button class="acc-month-btn" onclick="toggleAcc(this)">
+            <span class="acc-arrow">▶</span> 4月
+            <span class="acc-count">2件</span>
+          </button>
+          <div class="acc-month-body" style="display:none">
+            <div class="acc-article">
+              <span class="acc-date">4/24</span>
+              <span class="acc-badge expo">万博ログ</span>
+              <a class="acc-title" href="https://expo25.seesaa.net/article/520515005.html" target="_blank">「アフター万博」イベント&amp;ミャクミャクグッズ</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">4/23</span>
+              <span class="acc-badge blog">ブログ</span>
+              <a class="acc-title" href="https://toku-jii.seesaa.net/article/520506188.html" target="_blank">大阪市プレミアム商品券、4/22受付開始！</a>
+            </div>
+          </div>
         </div>
-      </a>
 
-      <a href="https://note.com/tokupapa" target="_blank" class="article-card">
-        <div class="article-thumb note-thumb">📝</div>
-        <div class="article-body">
-          <span class="article-platform note">note</span>
-          <span class="article-title">教える立場から学ぶ立場へ。定年を前にした学び直しの日々</span>
-          <span class="article-link">noteで読む →</span>
+        <div class="acc-month">
+          <button class="acc-month-btn" onclick="toggleAcc(this)">
+            <span class="acc-arrow">▶</span> 1月
+            <span class="acc-count">3件</span>
+          </button>
+          <div class="acc-month-body" style="display:none">
+            <div class="acc-article">
+              <span class="acc-date">1/3</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n01ffd9c066f1" target="_blank">不用品販売から学んだ人とのつながり</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">1/2</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n9edbf6bd43e6" target="_blank">2026年末年始、noteと向き合う</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">1/1</span>
+              <span class="acc-badge blog">ブログ</span>
+              <a class="acc-title" href="https://toku-jii.seesaa.net/article/519605510.html" target="_blank">母親の携帯変更→格安SIM利用で月1000円切り!!</a>
+            </div>
+          </div>
         </div>
-      </a>
 
-      <a href="https://libecity.com/know_how_library" target="_blank" class="article-card">
-        <div class="article-thumb" style="background:linear-gradient(135deg,#FF7A2F,#FF5722);display:flex;align-items:center;justify-content:center;font-size:2rem;">🛒</div>
-        <div class="article-body">
-          <span class="article-platform" style="background:#FF7A2F20;color:#FF7A2F;font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:4px;">リベシティ ノウハウ図書館</span>
-          <span class="article-title">1日20冊！本棚整理×メルカリ超高速出品法</span>
-          <span style="font-size:0.78rem;color:#E53E3E;margin-top:4px;display:block;">⚠️ リベシティ会員以外の方は一部のみ閲覧可能です</span>
-          <span class="article-link">図書館で読む →</span>
-        </div>
-      </a>
-
+      </div>
     </div>
+
+    <!-- 2025年 -->
+    <div class="acc-year">
+      <button class="acc-year-btn" onclick="toggleAcc(this)">
+        <span class="acc-arrow">▶</span> 2025年
+        <span class="acc-count">18件</span>
+      </button>
+      <div class="acc-year-body" style="display:none">
+
+        <div class="acc-month">
+          <button class="acc-month-btn" onclick="toggleAcc(this)">
+            <span class="acc-arrow">▶</span> 12月
+            <span class="acc-count">2件</span>
+          </button>
+          <div class="acc-month-body" style="display:none">
+            <div class="acc-article">
+              <span class="acc-date">12/31</span>
+              <span class="acc-badge expo">万博ログ</span>
+              <a class="acc-title" href="https://expo25.seesaa.net/article/519602107.html" target="_blank">アフター万博を楽しむ</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">12/30</span>
+              <span class="acc-badge blog">ブログ</span>
+              <a class="acc-title" href="https://toku-jii.seesaa.net/article/519592477.html" target="_blank">iPhoneの買い替えなら、今でしょ！Apple製品オトクな購入方法（2025年12月30日版）</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-month">
+          <button class="acc-month-btn" onclick="toggleAcc(this)">
+            <span class="acc-arrow">▶</span> 8月
+            <span class="acc-count">7件</span>
+          </button>
+          <div class="acc-month-body" style="display:none">
+            <div class="acc-article">
+              <span class="acc-date">8/31</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n28dff819df01" target="_blank">『いただきます。』喜多川 泰</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">8/31</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n74c184ed3bf7" target="_blank">小3の友達からもらった素敵なプレゼント</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">8/10</span>
+              <span class="acc-badge expo">万博ログ</span>
+              <a class="acc-title" href="https://expo25.seesaa.net/article/517572505.html" target="_blank">【万博2025×Pokémon GO】ようやく全制覇！ポケモンフォトスポット スタンプラリー完全ガイド</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">8/7</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n610d4db61478" target="_blank">わが家の『家族新聞』</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">8/3</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n4771efeb73b1" target="_blank">この喜び、ひとつひとつかみしめて</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">8/2</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/nebdafeb8170e" target="_blank">この『のぞみ』きっとかないますように</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">8/1</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/nb7ba77a58f2e" target="_blank">おばあちゃん、すごい！拍手を送ります</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-month">
+          <button class="acc-month-btn" onclick="toggleAcc(this)">
+            <span class="acc-arrow">▶</span> 7月
+            <span class="acc-count">9件</span>
+          </button>
+          <div class="acc-month-body" style="display:none">
+            <div class="acc-article">
+              <span class="acc-date">7/31</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/nd7a446f028cb" target="_blank">長い間ありがとう</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/30</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/nd973afb350ad" target="_blank">人の輪に感激</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/29</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n90b221e4cda5" target="_blank">土からエネルギーをもらう毎日</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/28</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n2e02225034b9" target="_blank">新しい家族がふえて</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/25</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n4d77f27b17fe" target="_blank">結婚記念日おめでとう</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/24</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/n4fcad0aac0bf" target="_blank">宇治の桜を見ながら</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/24</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/nb065c6acb9bf" target="_blank">ヴァージンロードは笑顔で</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/24</span>
+              <span class="acc-badge note">note</span>
+              <a class="acc-title" href="https://note.com/tokupapa/n/nf9328e77064c" target="_blank">娘の門出に「乾杯！」</a>
+            </div>
+            <div class="acc-article">
+              <span class="acc-date">7/13</span>
+              <span class="acc-badge expo">万博ログ</span>
+              <a class="acc-title" href="https://expo25.seesaa.net/article/517330889.html" target="_blank">【感動】大阪万博にブルーインパルスがやってきた</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:24px;">
+      <a href="https://note.com/tokupapa" target="_blank" style="display:inline-block;margin:4px 6px;padding:8px 18px;background:#E6FAF8;color:#2FC4B5;border-radius:999px;font-size:0.82rem;font-weight:700;text-decoration:none;">note をもっと見る →</a>
+      <a href="https://toku-jii.seesaa.net/" target="_blank" style="display:inline-block;margin:4px 6px;padding:8px 18px;background:#FFF3EC;color:#FF7A2F;border-radius:999px;font-size:0.82rem;font-weight:700;text-decoration:none;">ブログをもっと見る →</a>
+      <a href="https://expo25.seesaa.net/" target="_blank" style="display:inline-block;margin:4px 6px;padding:8px 18px;background:#EFF6FF;color:#3B82F6;border-radius:999px;font-size:0.82rem;font-weight:700;text-decoration:none;">万博ログをもっと見る →</a>
+    </p>
+
   </section>
 
   <!-- SNS CARDS -->
@@ -855,6 +1057,16 @@
       if (el && d.count) el.textContent = Number(d.count).toLocaleString() + ' 人';
     })
     .catch(() => {});
+</script>
+
+<script>
+  function toggleAcc(btn) {
+    const body = btn.nextElementSibling;
+    const arrow = btn.querySelector('.acc-arrow');
+    const isOpen = body.style.display !== 'none';
+    body.style.display = isOpen ? 'none' : 'block';
+    arrow.classList.toggle('open', !isOpen);
+  }
 </script>
 
 </body>
