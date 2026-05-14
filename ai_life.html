@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とくじぃのAIライフ LP0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1d2328;
+    --muted: #63707a;
+    --paper: #fffdf8;
+    --line: #d9e2dc;
+    --green: #138a65;
+    --green-dark: #0f5f49;
+    --yellow: #f4c84d;
+    --blue: #2d6cdf;
+    --red: #d84b3f;
+    --soft: #f4f7f3;
+    --shadow: 0 18px 50px rgba(29, 35, 40, 0.13);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--paper);
+    line-height: 1.8;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { max-width: 100%; display: block; }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 253, 248, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(217, 226, 220, 0.8);
+  }
+
+  .header-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  .brand img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 6px 18px rgba(19, 138, 101, 0.22);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #42505a;
+  }
+
+  .nav a {
+    padding: 8px 10px;
+    border-radius: 6px;
+  }
+
+  .nav a:hover { background: #edf4ef; }
+
+  .hero {
+    min-height: calc(100vh - 66px);
+    display: grid;
+    align-items: center;
+    background:
+      linear-gradient(90deg, rgba(255, 253, 248, 0.06) 0%, rgba(255, 253, 248, 0.18) 38%, rgba(255, 253, 248, 0.94) 66%),
+      url("画像/AI_LP.png") center / cover no-repeat;
+  }
+
+  .hero-inner {
+    max-width: 1320px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 72px 22px 56px;
+  }
+
+  .hero-copy {
+    width: min(540px, 100%);
+    margin-left: auto;
+    color: var(--ink);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(244, 200, 77, 0.95);
+    color: #1f2a16;
+    font-size: 0.86rem;
+    font-weight: 900;
+    line-height: 1.4;
+  }
+
+  h1 {
+    margin: 22px 0 18px;
+    font-size: clamp(2.6rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-shadow: none;
+  }
+
+  .lead {
+    margin: 0;
+    width: min(590px, 100%);
+    font-size: clamp(1.05rem, 2.2vw, 1.38rem);
+    font-weight: 700;
+    line-height: 1.75;
+    color: #334047;
+    text-shadow: none;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 900;
+    line-height: 1.35;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .button-primary {
+    background: var(--yellow);
+    color: #1d2328;
+  }
+
+  .button-secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--green-dark);
+    border: 1px solid rgba(15, 95, 73, 0.32);
+    background: rgba(255, 255, 255, 0.62);
+  }
+
+  .section {
+    padding: 76px 22px;
+  }
+
+  .section.alt { background: var(--soft); }
+
+  .inner {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1fr);
+    gap: 36px;
+    align-items: end;
+    margin-bottom: 34px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3.8vw, 3rem);
+    line-height: 1.25;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  .section-head p {
+    margin: 0;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .portal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .portal-card {
+    display: grid;
+    gap: 14px;
+    min-height: 360px;
+    padding: 18px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 30px rgba(29, 35, 40, 0.07);
+    overflow: hidden;
+  }
+
+  .portal-card.featured {
+    background: #fff;
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  .portal-card h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  .portal-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .portal-card.featured p { color: var(--muted); }
+
+  .portal-image {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #fffdf8;
+  }
+
+  .card-icon {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: #eaf4ef;
+    font-size: 1.9rem;
+  }
+
+  .portal-card.featured .card-icon { background: rgba(255, 255, 255, 0.12); }
+
+  .card-link {
+    align-self: end;
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 7px;
+    color: var(--green-dark);
+    font-weight: 900;
+  }
+
+  .portal-card.featured .card-link { color: var(--green-dark); }
+
+  .status-badge {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #fff1b8;
+    color: #6b5200;
+    font-size: 0.76rem;
+    font-weight: 900;
+    line-height: 1.4;
+  }
+
+  .portal-card.is-disabled,
+  .next-card.is-disabled {
+    cursor: default;
+  }
+
+  .portal-card.is-disabled .card-link,
+  .next-card.is-disabled .card-link {
+    color: #8a7470;
+  }
+
+  .timeline {
+    display: grid;
+    gap: 16px;
+    position: relative;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 20px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .date {
+    color: var(--green-dark);
+    font-weight: 900;
+  }
+
+  .timeline-item h3 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+    line-height: 1.45;
+  }
+
+  .timeline-item p { margin: 0; color: var(--muted); }
+
+  .assistant-visual {
+    display: grid;
+    gap: 24px;
+  }
+
+  .assistant-visual img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .result-card {
+    min-height: 190px;
+    padding: 18px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .result-card h3 {
+    margin: 12px 0 8px;
+    font-size: 1.06rem;
+    line-height: 1.45;
+  }
+
+  .result-card p {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--muted);
+  }
+
+  .num {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .quote-band {
+    background: #10271f;
+    color: #fff;
+  }
+
+  .quote-box {
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .quote-box p {
+    margin: 0;
+    font-size: clamp(1.45rem, 3.8vw, 2.6rem);
+    line-height: 1.55;
+    font-weight: 900;
+  }
+
+  .quote-box span {
+    display: block;
+    margin-top: 18px;
+    color: rgba(255, 255, 255, 0.72);
+    font-weight: 700;
+  }
+
+  .next-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .next-card {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .next-card img {
+    width: 92px;
+    height: 92px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .next-card h3 {
+    margin: 0 0 4px;
+    font-size: 1.12rem;
+  }
+
+  .next-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .footer {
+    padding: 32px 22px;
+    background: #0c1713;
+    color: rgba(255, 255, 255, 0.76);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, 0.20), rgba(255, 253, 248, 0.96) 72%),
+        url("画像/AI_LP.png") 34% center / cover no-repeat;
+    }
+
+    .hero-copy {
+      width: min(560px, 100%);
+    }
+
+    .section-head {
+      grid-template-columns: 1fr;
+    }
+
+    .portal-grid,
+    .results,
+    .next-links {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav { display: none; }
+
+    .header-inner { padding-inline: 16px; }
+
+    .brand span { font-size: 0.95rem; }
+
+    .hero-inner {
+      padding: 58px 16px 38px;
+    }
+
+    .hero {
+      min-height: 720px;
+      align-items: end;
+    }
+
+    .section { padding: 56px 16px; }
+
+    .portal-grid,
+    .results,
+    .next-links {
+      grid-template-columns: 1fr;
+    }
+
+    .timeline-item,
+    .next-card {
+      grid-template-columns: 1fr;
+    }
+
+    .next-card img {
+      width: 100%;
+      height: 160px;
+    }
+  }
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="とくじぃのAIライフ">
+        <img src="画像/ai_life_icon.png" alt="とくじぃアイコン">
+        <span>とくじぃのAIライフ</span>
+      </a>
+      <nav class="nav" aria-label="ページ内メニュー">
+        <a href="#portal">入口</a>
+        <a href="#story">歩み</a>
+        <a href="#tools">使い分け</a>
+        <a href="#works">成果物</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">LP0 / AIを使う側から、AIと作る側へ</span>
+          <h1>とくじぃの<br>AIライフ</h1>
+          <p class="lead">
+            ChatGPT、Perplexity、Claude Code、そしてCodex。試しながら、失敗しながら、メルカリ出品・請求書アプリ・ホームページ作りまで、毎日の仕事と遊びをAIで形にしていく記録です。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#portal">成果物を見る</a>
+            <a class="button button-secondary" href="#story">AI遍歴を読む</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="portal">
+      <div class="inner">
+        <div class="portal-grid">
+          <a class="portal-card" href="#story">
+            <h3>AIとの活動履歴</h3>
+            <img class="portal-image" src="画像/とくじぃAI_3.png" alt="AIとの活動履歴イメージ">
+            <p>無料版から課金、Claude Code、Codex二刀流へ。2025年からの流れをまとめます。</p>
+            <span class="card-link">年表へ →</span>
+          </a>
+          <a class="portal-card" href="ChatGPT実力まとめ.html">
+            <h3>ChatGPTの実力</h3>
+            <img class="portal-image" src="画像/とくじぃAI_2.png" alt="ChatGPTの実力イメージ">
+            <p>画像、文章、相談、アイデア出し。ChatGPTが得意な場面を、とくじぃ目線で整理。</p>
+            <span class="card-link">ページを見る →</span>
+          </a>
+          <a class="portal-card featured" href="claudecode_results.html">
+            <h3>Claude Codeの成果物</h3>
+            <img class="portal-image" src="画像/とくじぃAI_1.png" alt="Claude Codeの成果物イメージ">
+            <p>メルカリ管理、請求書アプリ、ホームページなど、実際に作ったものを一覧で紹介。</p>
+            <span class="card-link">ページを見る →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="story">
+      <div class="inner">
+        <div class="section-head">
+          <h2>AI遍歴</h2>
+          <p>
+            最初は「便利そう」から始まり、今では日常の相棒に。AIの進化と一緒に、とくじぃの使い方も変わってきました。
+          </p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="date">2025年5月ごろ</div>
+            <div>
+              <h3>AIが70点くらいになった、と聞いて動き出す</h3>
+              <p>リベシティの両学長がAIの実用性を語り始めたころ、ChatGPTとPerplexityを本格的に触り始めました。それ以前にもCopilotを少し試していました。</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="date">最初の課金</div>
+            <div>
+              <h3>ChatGPT無料版の画像アップ制限にすぐ到達</h3>
+              <p>画像を使う相談が増え、無料版では足りなくなってすぐ課金。主にメルカリ出品の手伝いで、説明文づくりや整理に活用しました。</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="date">2026年3月ごろ</div>
+            <div>
+              <h3>エージェント型AIは「産業革命」だと感じる</h3>
+              <p>両学長の発信をきっかけにClaude Codeへ。ChatGPTの課金を一度やめ、Claudeに課金して、作るAIに大きく舵を切りました。</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="date">半月後</div>
+            <div>
+              <h3>Claudeの課金を月100ドルコースへ</h3>
+              <p>オフ会を企画し、仲間から知識を吸収。メルカリ出品管理票、塾の請求書アプリ、ホームページ作りなど、次々に試しました。</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="date">現在</div>
+            <div>
+              <h3>ClaudeとChatGPT、エージェント型AIの二刀流へ</h3>
+              <p>Codexも登場し、Claudeは20ドルコースへ調整。ChatGPTは画像に強いProコースを使い、用途に合わせてAIを使い分けています。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="inner assistant-visual">
+        <div class="section-head">
+          <h2>4人の秘書がいる感覚</h2>
+          <p>
+            Claude Code、ChatGPT、Perplexity、Codex。ひとつのAIに全部任せるのではなく、得意分野で使い分けることで、毎日の相談・調査・制作がぐっと進めやすくなりました。
+          </p>
+        </div>
+        <img src="画像/AI 4人の秘書.png" alt="4人のAI秘書の使い分け">
+      </div>
+    </section>
+
+    <section class="section alt" id="works">
+      <div class="inner">
+        <div class="section-head">
+          <h2>AIで作ったもの</h2>
+          <p>
+            ここは今後、各成果物ページへのリンク集になります。LP0では、まず見せたいテーマを並べています。
+          </p>
+        </div>
+        <div class="results">
+          <a class="result-card" href="claudecode_results/mercari_showcase.html">
+            <span class="num">1</span>
+            <h3>メルカリ出品管理票</h3>
+            <p>出品文、写真、価格、進捗を管理しやすくする仕組み。</p>
+          </a>
+          <article class="result-card">
+            <span class="num">2</span>
+            <h3>塾の請求書アプリ</h3>
+            <span class="status-badge">工事中</span>
+            <p>日々の請求業務を軽くするための、実務寄りのAI活用。</p>
+          </article>
+          <a class="result-card" href="claudecode_results/tokupapa_showcase.html">
+            <span class="num">3</span>
+            <h3>ホームページ作り</h3>
+            <p>とくじぃの日常、オフ会、活動記録をページとして残す。</p>
+          </a>
+          <article class="result-card">
+            <span class="num">4</span>
+            <h3>オフ会資料・告知</h3>
+            <span class="status-badge">工事中</span>
+            <p>Claude Code活用オフ会など、学びを共有するための制作物。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section quote-band">
+      <div class="quote-box">
+        <p>AIは、詳しい人だけのものじゃない。<br>やりたいことがある人の、頼れる相棒になる。</p>
+        <span>とくじぃのAIライフ LP0</span>
+      </div>
+    </section>
+
+    <section class="section" id="next">
+      <div class="inner">
+        <div class="section-head">
+          <h2>次につくるページ案</h2>
+          <p>
+            このLPから飛ばすページの候補です。実ページができたら、上のカードや下の一覧をリンクに差し替えていきます。
+          </p>
+        </div>
+        <div class="next-links">
+          <a class="next-card" href="claudecode_results.html">
+            <img src="画像/AI_LP.png" alt="Claude Code活用オフ会イメージ">
+            <div>
+              <h3>Claude Code成果物まとめ</h3>
+              <p>作ったアプリやページを、画面付きで紹介するページ。</p>
+            </div>
+          </a>
+          <a class="next-card" href="ChatGPT実力まとめ.html">
+            <img src="画像/ChatGPT_Lp.png" alt="ChatGPT実力まとめ">
+            <div>
+              <h3>ChatGPTでできること</h3>
+              <p>画像・文章・相談の実例を、とくじぃ目線でまとめるページ。</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>このページはLP0です。公開時はPrivateリポジトリとCloudflare Accessで守る前提で運用します。</p>
+  </footer>
+</body>
+</html>

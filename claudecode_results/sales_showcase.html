@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClaudeCode × 売上管理 進化の記録</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: #F7F8FC;
+  color: #1a1a2e;
+  min-height: 100vh;
+  font-size: 17px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #27c99f 0%, #1a9e7d 60%, #147a60 100%);
+  padding: 56px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 55%);
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.08em; padding: 6px 20px;
+  border-radius: 20px; margin-bottom: 22px; position: relative;
+}
+.hero h1 {
+  font-size: clamp(28px, 5vw, 46px); font-weight: 800;
+  color: #fff; position: relative; line-height: 1.3;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.hero-sub { margin-top: 16px; font-size: 18px; color: rgba(255,255,255,0.88); position: relative; }
+.hero-stats {
+  display: flex; justify-content: center; gap: 32px;
+  margin-top: 36px; flex-wrap: wrap; position: relative;
+}
+.stat {
+  text-align: center; background: rgba(255,255,255,0.2);
+  border-radius: 14px; padding: 14px 26px; min-width: 90px;
+}
+.stat-num { font-size: 34px; font-weight: 800; color: #fff; line-height: 1; }
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.82); margin-top: 5px; font-weight: 600; }
+
+.timeline { max-width: 900px; margin: 0 auto; padding: 52px 24px 80px; }
+
+.step { margin-bottom: 56px; }
+.step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+.step-num {
+  width: 50px; height: 50px; border-radius: 50%;
+  background: linear-gradient(135deg, #27c99f, #1a9e7d);
+  color: #fff; font-size: 20px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; box-shadow: 0 4px 16px rgba(39,201,159,0.35);
+}
+.step-num.blue  { background: linear-gradient(135deg, #5378e9, #3456c7); box-shadow: 0 4px 16px rgba(83,120,233,0.35); }
+.step-num.teal  { background: linear-gradient(135deg, #00bcd4, #0097a7); box-shadow: 0 4px 16px rgba(0,188,212,0.35); }
+.step-num.gold  { background: linear-gradient(135deg, #faad14, #d48806); box-shadow: 0 4px 16px rgba(250,173,20,0.35); }
+.step-title { font-size: 23px; font-weight: 800; color: #1a1a2e; line-height: 1.2; }
+.step-date  { font-size: 13px; color: #888; margin-top: 4px; }
+
+.arrow { text-align: center; font-size: 30px; color: #27c99f; margin: -28px 0 12px; opacity: 0.55; }
+
+.instruction-box {
+  background: #fff; border: 1px solid #e8e8e8;
+  border-left: 5px solid #27c99f; border-radius: 14px;
+  padding: 22px 28px; box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+}
+.instruction-box.blue { border-left-color: #5378e9; }
+.instruction-box.teal { border-left-color: #00bcd4; }
+.instruction-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  color: #27c99f; margin-bottom: 12px; text-transform: uppercase;
+}
+.instruction-label.blue { color: #5378e9; }
+.instruction-label.teal { color: #00bcd4; }
+.instruction-text { font-size: 19px; line-height: 1.85; color: #333; }
+.instruction-text strong { color: #1a1a2e; font-weight: 700; }
+
+/* 結果カード */
+.result-card {
+  background: #fff; border: 1px solid #e8e8e8;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 3px 18px rgba(0,0,0,0.07);
+}
+.result-card-header {
+  background: linear-gradient(90deg, #F0FFF8, #fff);
+  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 22px;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.result-card-header.blue { background: linear-gradient(90deg, #EEF2FF, #fff); }
+.result-card-header.teal { background: linear-gradient(90deg, #E0F7FA, #fff); }
+.result-card-title { font-size: 15px; font-weight: 700; color: #333; }
+.result-card-badge {
+  font-size: 12px; font-weight: 700; padding: 4px 13px;
+  border-radius: 20px; background: #F0FFF8; color: #27c99f; border: 1px solid #a8ecd8;
+}
+.result-card-badge.blue { background: #EEF2FF; color: #5378e9; border-color: #c7d4fa; }
+.result-card-badge.teal { background: #E0F7FA; color: #0097a7; border-color: #80deea; }
+
+/* クリック可能な画像 */
+.img-link {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+.img-link img {
+  width: 100%; height: auto; display: block;
+  transition: opacity 0.2s;
+}
+.img-link:hover img { opacity: 0.92; }
+.img-link .hover-hint {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+  background: rgba(0,0,0,0.03);
+}
+.img-link:hover .hover-hint { opacity: 1; }
+.hover-hint-inner {
+  background: rgba(0,0,0,0.72); color: #fff;
+  font-size: 15px; font-weight: 700;
+  padding: 10px 24px; border-radius: 30px;
+  display: flex; align-items: center; gap: 8px;
+}
+.img-caption {
+  padding: 10px 20px;
+  font-size: 12px; color: #aaa;
+  background: #fafafa;
+  text-align: center;
+}
+
+.diff-added {
+  display: inline-block; font-size: 10px; color: #27c99f;
+  font-weight: 700; padding: 1px 7px;
+  background: #E8FFF6; border: 1px solid #a8ecd8;
+  border-radius: 4px; margin-left: 8px; vertical-align: middle;
+}
+
+.improvement-box {
+  background: #F0FFF8; border: 1px solid #a8ecd8;
+  border-radius: 12px; padding: 16px 22px; margin-top: 14px;
+}
+.improvement-title { font-size: 13px; font-weight: 700; color: #1a9e7d; margin-bottom: 12px; }
+.improvement-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.improvement-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 16px; color: #444; line-height: 1.7;
+}
+.improvement-list li::before { content: '✅'; flex-shrink: 0; font-size: 15px; }
+.improvement-list li strong { color: #1a1a2e; font-weight: 700; }
+
+.wow-banner {
+  background: linear-gradient(135deg, #F0FFF8, #E8FFF5);
+  border: 1px solid #a8ecd8; border-radius: 12px;
+  padding: 16px 22px; margin-top: 14px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.wow-banner.blue { background: linear-gradient(135deg, #F5F8FF, #EEF2FF); border-color: #c7d4fa; }
+.wow-banner.teal { background: linear-gradient(135deg, #E0F7FA, #F0FDFF); border-color: #80deea; }
+.wow-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.wow-text { font-size: 17px; color: #555; line-height: 1.75; }
+.wow-text strong { color: #1a1a2e; font-weight: 700; }
+
+.sheet-badges { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 20px; border-top: 1px solid #f0f0f0; }
+.sheet-badge {
+  font-size: 11px; font-weight: 700; padding: 4px 10px;
+  border-radius: 20px; background: #F0FFF8; color: #1a9e7d; border: 1px solid #a8ecd8;
+}
+.sheet-badge.new { background: #27c99f; color: #fff; border-color: #27c99f; }
+
+.divider { display: flex; align-items: center; gap: 16px; margin: 44px 0; }
+.divider-line { flex: 1; height: 1px; background: #E0E0E0; }
+.divider-text { font-size: 12px; color: #bbb; letter-spacing: 0.12em; font-weight: 600; }
+
+.summary-box {
+  background: #fff; border: 2px solid #a8ecd8;
+  border-radius: 20px; padding: 38px 30px;
+  text-align: center; box-shadow: 0 4px 24px rgba(39,201,159,0.08);
+}
+.summary-box h2 { font-size: 24px; font-weight: 800; color: #1a1a2e; line-height: 1.5; margin-bottom: 16px; }
+.summary-box p { font-size: 17px; color: #666; line-height: 1.95; }
+.summary-box p strong { color: #27c99f; font-weight: 700; }
+
+.footer {
+  text-align: center; padding: 28px 20px;
+  color: #bbb; font-size: 13px;
+  border-top: 1px solid #eee; background: #fff;
+}
+
+.ai-life-back {
+  max-width: 900px;
+  margin: 56px auto 0;
+  padding: 0 24px;
+}
+.ai-life-back a {
+  display: inline-flex;
+  align-items: center;
+  color: #0d8a6c;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 900;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.ai-life-back a:hover { color: #096b55; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">ClaudeCode × 売上管理 活用事例</div>
+  <h1>📊 メルカリ売上管理シート<br>進化の記録</h1>
+  <p class="hero-sub">自分で作ったシートを、Claudeが自動化・進化させた記録</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">バージョン</div></div>
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">月分のシート</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">コード知識</div></div>
+  </div>
+</div>
+
+<div class="timeline">
+
+  <!-- V1：自作シート -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">📝</div>
+      <div>
+        <div class="step-title">出発点：自分で手作りしたシート</div>
+        <div class="step-date">ClaudeCode導入以前 ／ 自作スプレッドシート</div>
+      </div>
+    </div>
+    <div class="wow-banner">
+      <div class="wow-icon">🙋</div>
+      <div class="wow-text">
+        メルカリで売れるたびに、<strong>商品名・日付・販売価格などをすべて手入力</strong>していました。<br>
+        このスプレッドシートは、自分でゼロから作ったものです。
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- V1 画像 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num" style="font-size:16px;">自作</div>
+      <div>
+        <div class="step-title">手作りのスプレッドシート</div>
+        <div class="step-date">メルカリ.xlsx ／ 自分で作成・手入力で運用</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header">
+        <span class="result-card-title">📊 メルカリ.xlsx ／ 自作の売上管理シート</span>
+        <span class="result-card-badge">自作版</span>
+      </div>
+      <div class="img-link">
+        <img src="sales_v1.png" alt="自作の売上管理シート">
+        <div class="hover-hint">
+          <div class="hover-hint-inner">📂 Excelファイルは非公開</div>
+        </div>
+      </div>
+      <div class="img-caption">公開ページではスクリーンショットのみ掲載しています</div>
+    </div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">Claudeに頼んでみた</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- STEP 1: 指示 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Claudeへの指示</div>
+        <div class="step-date">ClaudeCode（最初のセッション）</div>
+      </div>
+    </div>
+    <div class="instruction-box">
+      <div class="instruction-label">🗣 Claudeへの指示</div>
+      <div class="instruction-text">
+        「<strong>このスプレッドシートに、<br>
+        メルカリの売上データを自動で入力してください。</strong>」
+      </div>
+    </div>
+    <div class="wow-banner">
+      <div class="wow-icon">😲</div>
+      <div class="wow-text">
+        データを入力してもらっただけのつもりが…<br>
+        <strong>シート全体の見栄えまでキレイに整えてくれていました！</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- V2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num blue">V2</div>
+      <div>
+        <div class="step-title">Claudeが仕上げた版</div>
+        <div class="step-date">メルカリ_v2.xlsx ／ 自動入力＋見栄えも改善</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header blue">
+        <span class="result-card-title">
+          📊 メルカリ_v2.xlsx ／ Claude仕上げ版
+          <span class="diff-added">自動入力＋改善</span>
+        </span>
+        <span class="result-card-badge blue">Ver.2</span>
+      </div>
+      <div class="img-link">
+        <img src="sales_v2.png" alt="売上管理シート Version 2（Claude仕上げ版）">
+        <div class="hover-hint">
+          <div class="hover-hint-inner">📂 Excelファイルは非公開</div>
+        </div>
+      </div>
+      <div class="img-caption">公開ページではスクリーンショットのみ掲載しています</div>
+      <div class="sheet-badges">
+        <span style="font-size:12px;color:#888;margin-right:4px;line-height:28px;">収録シート：</span>
+        <span class="sheet-badge">2025年7月</span>
+        <span class="sheet-badge">2025年8月</span>
+        <span class="sheet-badge">2025年9月</span>
+        <span class="sheet-badge">2025年10月</span>
+        <span class="sheet-badge">2025年11月</span>
+        <span class="sheet-badge">2025年12月</span>
+        <span class="sheet-badge">2026年1月</span>
+        <span class="sheet-badge new">2026年2月 ★</span>
+        <span class="sheet-badge new">2026年3月 ★</span>
+        <span class="sheet-badge new">2026年4月 ★</span>
+      </div>
+    </div>
+    <div class="improvement-box">
+      <div class="improvement-title">📋 Claudeが自動的に改善してくれた点</div>
+      <ul class="improvement-list">
+        <li><strong>売上データを自動入力</strong> — 手入力していたデータをすべて自動で登録</li>
+        <li><strong>見栄えを整えてくれた</strong> — 列名・書式・レイアウトをわかりやすく改善</li>
+        <li><strong>「プロモ(円)」列を追加</strong> — セール・クーポン利用時のコストも管理できるように</li>
+        <li><strong>手数料を円単位で正確に計算</strong> — ROUND関数で端数が出ないよう自動改善</li>
+        <li><strong>月シートを最新月まで追加</strong> — 2026年4月まで自動で追加・整備</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">最終仕上げ</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num teal">3</div>
+      <div>
+        <div class="step-title">さらに改良リクエスト</div>
+        <div class="step-date">ClaudeCode（追加セッション）</div>
+      </div>
+    </div>
+    <div class="instruction-box teal">
+      <div class="instruction-label teal">🗣 Claudeへの指示</div>
+      <div class="instruction-text">
+        「<strong>月ごとの売上をまとめた集計表を追加してください。</strong>」
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow" style="color:#00bcd4;">↓</div>
+
+  <!-- V3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num teal">V3</div>
+      <div>
+        <div class="step-title">最終版 完成</div>
+        <div class="step-date">メルカリ_v2.xlsx ／ 月別集計表を追加</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header teal">
+        <span class="result-card-title">
+          📊 メルカリ_v2.xlsx ／ 月別集計表シート
+          <span class="diff-added">集計表 NEW</span>
+        </span>
+        <span class="result-card-badge teal">最終版</span>
+      </div>
+      <div class="img-link">
+        <img src="sales_v3.png" alt="売上管理シート 最終版（集計表）">
+        <div class="hover-hint">
+          <div class="hover-hint-inner">📂 Excelファイルは非公開</div>
+        </div>
+      </div>
+      <div class="img-caption">公開ページではスクリーンショットのみ掲載しています</div>
+    </div>
+    <div class="wow-banner teal">
+      <div class="wow-icon">🎉</div>
+      <div class="wow-text">
+        月ごとにバラバラだったデータが、<strong>集計表で一覧比較できる</strong>ようになりました。<br>
+        どの月が売上が多かったか、収益の推移がひと目でわかります。
+      </div>
+    </div>
+  </div>
+
+  <!-- まとめ -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">まとめ</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="summary-box">
+    <div style="font-size:38px;margin-bottom:18px">💹</div>
+    <h2>手入力ゼロへ。<br>販売価格を入れるだけで全部計算</h2>
+    <p>
+      以前は手数料も収益も自分で計算して手入力していました。<br>
+      Claudeに頼んだら、<strong>販売価格を入れるだけで手数料・収益が瞬時に計算</strong>されるシートができました。<br>
+      さらに追加指示で、プロモ費用対応・月シートの自動追加・<strong>集計表まで完成</strong>。
+    </p>
+  </div>
+
+</div>
+
+<div class="ai-life-back">
+  <a href="../ai_life.html">← とくじぃのAIライフへ戻る</a>
+</div>
+
+<div class="footer">
+  ClaudeCode活用事例 ／ リベシティオフ会 2026年4月
+</div>
+
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とくじぃのClaude活用つぶやきまとめ</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  background: #F0F4F8;
+  color: #1a1a2e;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #1a3a5c 0%, #0f6292 50%, #1a6b96 100%);
+  padding: 56px 24px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(100,200,255,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(150,230,255,0.08) 0%, transparent 55%);
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.9);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  padding: 5px 18px; border-radius: 20px;
+  margin-bottom: 20px; position: relative;
+}
+.hero h1 {
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.04em;
+  position: relative;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.hero-sub {
+  color: rgba(255,255,255,0.82);
+  font-size: 0.95rem;
+  position: relative;
+  margin-bottom: 28px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  position: relative;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat .num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.hero-stat .label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+}
+
+/* ===== TABS ===== */
+.tab-nav {
+  display: flex;
+  gap: 0;
+  background: #fff;
+  border-bottom: 2px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex: none;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  margin-bottom: -2px;
+}
+.tab-btn.active { color: #0f6292; border-bottom-color: #0f6292; }
+.tab-btn:hover { color: #0f6292; }
+
+/* ===== SECTION ===== */
+.section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+.section-header {
+  margin-bottom: 28px;
+}
+.section-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 14px;
+  border-radius: 14px;
+  margin-bottom: 8px;
+}
+.tag-ai    { background: #EFF6FF; color: #2563EB; }
+.tag-kurashi { background: #F0FDF4; color: #16A34A; }
+.tag-shigoto { background: #FFF7ED; color: #EA580C; }
+
+.section-header h2 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+.section-header p {
+  color: #64748b;
+  font-size: 0.88rem;
+  margin-top: 4px;
+}
+
+/* ===== TWEET CARD ===== */
+.tweet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+@media (max-width: 600px) {
+  .tweet-grid { grid-template-columns: 1fr; }
+}
+
+.tweet-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.tweet-card:hover {
+  box-shadow: 0 6px 28px rgba(0,0,0,0.13);
+  transform: translateY(-2px);
+}
+
+.tweet-card-body {
+  padding: 20px 20px 16px;
+}
+.tweet-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.num-ai      { background: #2563EB; }
+.num-kurashi { background: #16A34A; }
+.num-shigoto { background: #EA580C; }
+
+.tweet-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.tweet-tool {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.tool-cowork { background: #EFF6FF; color: #2563EB; }
+.tool-code   { background: #F3E8FF; color: #7C3AED; }
+.tool-chat   { background: #FFF7ED; color: #C2410C; }
+
+.tweet-what, .tweet-change {
+  font-size: 0.88rem;
+  color: #475569;
+  margin-bottom: 8px;
+}
+.tweet-what strong, .tweet-change strong {
+  color: #1e293b;
+}
+.tweet-result {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f6292;
+  background: #E0F2FE;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.tweet-screenshot {
+  width: 100%;
+  display: block;
+  border-top: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.tweet-screenshot:hover { opacity: 0.9; }
+
+.tweet-meta {
+  padding: 10px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+}
+.tweet-date { font-weight: 600; }
+.tweet-likes { color: #64748b; }
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 420px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+  position: fixed;
+  top: 20px; right: 24px;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  background: none;
+  border: none;
+}
+
+/* ===== PANEL SHOW/HIDE ===== */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 32px 20px;
+  color: #94a3b8;
+  font-size: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ai-life-back {
+  max-width: 1100px;
+  margin: 56px auto 0;
+  padding: 0 24px;
+}
+.ai-life-back a {
+  display: inline-flex;
+  align-items: center;
+  color: #0d8a6c;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 900;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.ai-life-back a:hover { color: #096b55; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">LIBECITY つぶやきまとめ</div>
+  <h1>とくじぃのClaude活用記録</h1>
+  <p class="hero-sub">リベシティに投稿したつぶやきをまとめました</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">15</div><div class="label">つぶやき</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">カテゴリ</div></div>
+    <div class="hero-stat"><div class="num">2026</div><div class="label">年</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('ai', this)">#エージェント型AI活用事例（6件）</button>
+  <button class="tab-btn" onclick="switchTab('kurashi', this)">#暮らしでクロコ（6件）</button>
+  <button class="tab-btn" onclick="switchTab('shigoto', this)">#仕事でクロコ（5件）</button>
+</nav>
+
+<!-- ======= AI活用事例 ======= -->
+<div id="panel-ai" class="tab-panel active">
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag tag-ai">#エージェント型AI活用事例</div>
+    <h2>Claudeを使ってやってみた！</h2>
+    <p>2026年4月8日〜11日 投稿</p>
+  </div>
+  <div class="tweet-grid">
+
+    <!-- 1 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-ai">1</div>
+        <div class="tweet-title">メルカリ出品中リスト作成</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>出品からの経過日数・閲覧数・いいね数を元に、値下げすべきか判断。おすすめ価格も提示してもらいました。在庫管理にも使えます。</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2072.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/08 07:35</span>
+        <span class="tweet-likes">👍 12　😊 2</span>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-ai">2</div>
+        <div class="tweet-title">メルカリ在庫管理</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>出品中リストと棚の写真10枚を渡し、在庫あり・なしのチェックと何枚目の写真に写っているかまとめてもらいました。</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2073.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/08</span>
+        <span class="tweet-likes">😊 10</span>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-ai">3</div>
+        <div class="tweet-title">エクセル小口現金表の複製作業</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>原本シートのタイトルセルに部署名を入力。その部署名ブックとして10個分保存する作業。地味にめんどうな作業がたった数分で完成しました。</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2074.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/08 07:47</span>
+        <span class="tweet-likes">👍 12　😊 1</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-ai">4</div>
+        <div class="tweet-title">オフ会用スライド作成</div>
+        <div class="tweet-tool tool-chat">Claude チャット</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>ノウハウ図書館に投稿した自分の記事を元に、オフ会で参加者さんに説明するためのスライドを作成してもらいました。オフ会のレベルアップに活用できます。</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2075.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/08</span>
+        <span class="tweet-likes">😊 10</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-ai">5</div>
+        <div class="tweet-title">MacBook内のファイル整理</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>ダウンロード・デスクトップ・書類等にたまったファイルをカテゴリ分けして整理。重複ファイルは削除候補に。最後に自分で削除してMacがスッキリしました。</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2076.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/08 07:59</span>
+        <span class="tweet-likes">👍 13</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-ai">6</div>
+        <div class="tweet-title">高配当株マガジンのリスト分析</div>
+        <div class="tweet-tool tool-code">Claude Code</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>学長の高配当株マガジン3・4月のリストを読み込ませ、追加削除された銘柄をリストアップ。現在の株価を調べて何株購入したら推奨比率になるか計算させました。</div>
+        <div class="tweet-result">→ 高配当株やってる方におすすめ！</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2077.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/11 08:30</span>
+        <span class="tweet-likes">👍 14</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ======= 暮らしでクロコ ======= -->
+<div id="panel-kurashi" class="tab-panel">
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag tag-kurashi">#暮らしでクロコ</div>
+    <h2>日常生活をクロコで便利に！</h2>
+    <p>2026年5月 投稿</p>
+  </div>
+  <div class="tweet-grid">
+
+    <!-- 暮1 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-kurashi">1</div>
+        <div class="tweet-title">宮古島旅行の費用・割り勘計算</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>友人夫婦との宮古島旅行（5日間）の手書きメモ3枚をスマホで撮影してクロコに送付。費用・割り勘計算してまとめを依頼。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>メモ写真だけで自動集計、精算差額まで即計算！Excel表も自動作成して友人と共有。旅の後片付けが数分で完了しました。</div>
+        <div class="tweet-result">→ 時短</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2475.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/04</span>
+        <span class="tweet-likes">👍 12　❤️ 1</span>
+      </div>
+    </div>
+
+    <!-- 暮2 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-kurashi">2</div>
+        <div class="tweet-title">メルカリ在庫の写真チェック</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>在庫棚の写真を数枚撮り、メルカリ出品中リスト（クロコ作成）と突き合わせて、在庫ありにチェックを入れる作業。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>在庫を目視しながら紙のリストにチェックを入れなくても、自動でチェック済みリストができた。</div>
+        <div class="tweet-result">→ 時短＆紙節約</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2476.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/04</span>
+        <span class="tweet-likes">👣 3　❤️ 8</span>
+      </div>
+    </div>
+
+    <!-- 暮3 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-kurashi">3</div>
+        <div class="tweet-title">オフ会参加者紹介ページ作成</div>
+        <div class="tweet-tool tool-code">Claude Code</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>オフ会参加者リストCSVからパワポのメンバー紹介ページを作成する。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>アイコンとリベネームを入れた紹介ページを作るようになったので、メンバーの顔と名前が一致しやすくなった。</div>
+        <div class="tweet-result">→ コミュカアップ</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2478.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/03</span>
+        <span class="tweet-likes">👍 13　❤️ 5</span>
+      </div>
+    </div>
+
+    <!-- 暮4 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-kurashi">4</div>
+        <div class="tweet-title">CloudflareでHP用ドメイン取得</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>CloudflareでHP用ドメイン取得。英語だったけど全て手引きしてくれて無事1年契約の支払いまで完了。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>いつかはと思ってた自分のメアドと同じドメイン名で契約できた。HPアドレスを簡単に人に伝えられるようになった。</div>
+        <div class="tweet-result">→ 問題解決</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2480.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/02 04:27</span>
+        <span class="tweet-likes"></span>
+      </div>
+    </div>
+
+    <!-- 暮5 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-kurashi">5</div>
+        <div class="tweet-title">自分のHP作成・クラウドフレアにアップ</div>
+        <div class="tweet-tool tool-code">Claude Code</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>自分のHPを作ってもらってクラウドフレアーにアップまでしてもらった。お願いもしてないのに、同年代のおすすめHPを5つ紹介してくれて、好きなデザインを選んだらそのテイストに書き換えてくれた。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>HPを自分好みにいく老後の楽しみが増えた。</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2482.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/01 17:03</span>
+        <span class="tweet-likes">👍 17　❤️ 1</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ======= 仕事でクロコ ======= -->
+<div id="panel-shigoto" class="tab-panel">
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag tag-shigoto">#仕事でクロコ</div>
+    <h2>仕事の効率アップをクロコで！</h2>
+    <p>2026年5月 投稿</p>
+  </div>
+  <div class="tweet-grid">
+
+    <!-- 仕1 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-shigoto">1</div>
+        <div class="tweet-title">クロコプログラムを会社PCに配布</div>
+        <div class="tweet-tool tool-code">Claude Code</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>クロコで作ったプログラムを会社メンバーのWinPCに配布する。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>社員が自分のPCで作業できるようになった。PythonBeginner設定方法と操作方法のマニュアルまで勝手に揃えてくれた。</div>
+        <div class="tweet-result">→ 自分の時間節約＆会社への自己アピール</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2477.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/04 05:30</span>
+        <span class="tweet-likes">👍 8　🔥 1　❤️ 3　💙 1</span>
+      </div>
+    </div>
+
+    <!-- 仕2 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-shigoto">2</div>
+        <div class="tweet-title">塾アプリのメッセージ自動巡回プログラム</div>
+        <div class="tweet-tool tool-code">Claude Code</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>塾用アプリにアクセスし、保護者からのメッセージをチェック。日時・氏名・リンク先・問い合わせ内容・返信要否をつけたエクセルシートを作成する自動巡回プログラム作成。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>アプリで1件ずつ開く確認作業が省けた。</div>
+        <div class="tweet-result">→ 時短＆見逃し防止</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2479.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/03 07:24</span>
+        <span class="tweet-likes">👍 15</span>
+      </div>
+    </div>
+
+    <!-- 仕3 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-shigoto">3</div>
+        <div class="tweet-title">請求書CSVから月謝台帳作成</div>
+        <div class="tweet-tool tool-code">Claude Code</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>請求書CSVから、1人1行の月謝台帳作成。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>アプリで作成した請求書CSVは1人数行に分かれて見にくかったけど、1人1行の見やすい形式に一瞬で作り直してくれるのでミスチェックの効率と正確性が高まった。</div>
+        <div class="tweet-result">→ 時短・精度UP</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2481.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/02 03:16</span>
+        <span class="tweet-likes">👍 14</span>
+      </div>
+    </div>
+
+    <!-- 仕4 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-shigoto">4</div>
+        <div class="tweet-title">エクセルを支店別10冊に分割保存</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>本社から送られた小口現金管理のエクセルファイルをマスターとして、シート名を10ヶ所の支店名に付け替えてから、ファイル名も支店名にして10個のエクセルブックを保存してもらった。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>面倒な単純作業がわずか数分で完了！</div>
+        <div class="tweet-result">→ 時短になりました</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2483.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/05/01 16:48</span>
+        <span class="tweet-likes">👍 14　❤️ 1</span>
+      </div>
+    </div>
+
+    <!-- 仕5 -->
+    <div class="tweet-card">
+      <div class="tweet-card-body">
+        <div class="tweet-num num-shigoto">5</div>
+        <div class="tweet-title">エクセル小口現金表の複製作業（10部署分）</div>
+        <div class="tweet-tool tool-cowork">Claude Cowork</div>
+        <div class="tweet-what"><strong>✅ やったこと</strong><br>原本シートのタイトルセルに部署名を入力。その部署名ブックとして10個分保存してもらう作業。</div>
+        <div class="tweet-change"><strong>✅ どう変わった？</strong><br>地味にめんどうな作業がたった数分で完成しました。</div>
+        <div class="tweet-result">→ 時短</div>
+      </div>
+      <img class="tweet-screenshot" src="IMG_2074.PNG" alt="つぶやきスクリーンショット" onclick="openLightbox(this)">
+      <div class="tweet-meta">
+        <span class="tweet-date">2026/04/08 07:47</span>
+        <span class="tweet-likes">👍 12　😊 1</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<div class="ai-life-back">
+  <a href="../../ai_life.html">← とくじぃのAIライフへ戻る</a>
+</div>
+
+<footer>
+  © とくじぃ | リベシティ つぶやきまとめ
+</footer>
+
+<script>
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+function openLightbox(img) {
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
