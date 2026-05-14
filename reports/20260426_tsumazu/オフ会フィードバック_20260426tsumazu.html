@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4/26 つまずきラボ オフ会フィードバックまとめ</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f0f4f8;
+            color: #333;
+            line-height: 1.7;
+        }
+        h1 {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 12px;
+            font-size: 1.4em;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .event-info {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #1abc9c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .event-info h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .event-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        .event-info td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95em;
+        }
+        .event-info td:first-child {
+            font-weight: bold;
+            width: 130px;
+            color: #666;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .summary-box {
+            background: #e8f8f5;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #1abc9c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .summary-box h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .summary-box ul {
+            margin: 12px 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .summary-box li {
+            margin-bottom: 10px;
+            padding-left: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .tag.good { background: #27ae60; color: white; }
+        .tag.improve { background: #e67e22; color: white; }
+        .tag.next { background: #8e44ad; color: white; }
+        .tag.guest { background: #16a085; color: white; }
+        .note-box {
+            background: #fff8e1;
+            border-radius: 10px;
+            padding: 18px 20px;
+            border-left: 4px solid #f39c12;
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 24px;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .report-card {
+            background: #f0faf8;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            border-left: 4px solid #1abc9c;
+        }
+        .report-card .content {
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+        .improve-list {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #c0392b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .improve-list h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #c0392b;
+            padding-bottom: 10px;
+        }
+        .improve-list ul {
+            margin: 12px 0 0;
+            padding-left: 20px;
+        }
+        .improve-list li {
+            margin-bottom: 10px;
+        }
+        .improve-list strong {
+            color: #c0392b;
+        }
+        .members-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .member-chip {
+            background: #e8f8f5;
+            border: 1px solid #1abc9c;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.85em;
+            color: #16a085;
+        }
+        footer {
+            text-align: center;
+            color: #aaa;
+            margin-top: 40px;
+            font-size: 0.85em;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📋 4/26 つまずきラボ フィードバックまとめ</h1>
+
+<!-- イベント概要 -->
+<div class="event-info">
+    <h2>🗓 イベント概要</h2>
+    <table>
+        <tr><td>イベント名</td><td>ClaudeCode 初操作 つまずきラボ @京都</td></tr>
+        <tr><td>日時</td><td>2026年4月26日（日）午前〜午後（京都オフ会として同日開催）</td></tr>
+        <tr><td>場所</td><td>京都オフィス</td></tr>
+        <tr><td>参加形態</td><td>とくじぃはゲスト参加（他者主催イベント）</td></tr>
+        <tr><td>内容</td><td>Claude Codeを使って英単語帳・ポモドーロタイマーなどを実際に作成。初心者向けに順を追ったプロンプト体験</td></tr>
+        <tr><td>参加メンバー</td><td>とくじぃ・Aya・コナコーヒー・あき・なべ・あっしー・やっちん・ゆみな・えっちゃん（9名）</td></tr>
+    </table>
+</div>
+
+<!-- 参加者一覧 -->
+<div class="section">
+    <h2>👥 参加メンバー</h2>
+    <div class="members-wrap">
+        <span class="member-chip">とくじぃ（ゲスト）</span>
+        <span class="member-chip">Aya</span>
+        <span class="member-chip">コナコーヒー</span>
+        <span class="member-chip">あき</span>
+        <span class="member-chip">なべ</span>
+        <span class="member-chip">あっしー</span>
+        <span class="member-chip">やっちん</span>
+        <span class="member-chip">ゆみな</span>
+        <span class="member-chip">えっちゃん</span>
+    </div>
+</div>
+
+<!-- 注記 -->
+<div class="note-box">
+    ⚠️ このオフ会はとくじぃが他者主催イベントにゲスト参加した形式のため、専用チャットルームからのフィードバックメッセージは収集できていません。以下はとくじぃの観察・所感に基づいた記録です。
+</div>
+
+<!-- フィードバック概要 -->
+<div class="summary-box">
+    <h2>✨ フィードバック概要（参加所感）</h2>
+    <ul>
+        <li><span class="tag good">好評</span> プロンプトを順を追って準備していただいており、スムーズに作業が進んだ</li>
+        <li><span class="tag good">好評</span> 「まだ何に使えばよいかわからなかった」参加者も、実際の制作を通してClaudeを体感できた</li>
+        <li><span class="tag good">好評</span> 英単語帳・ポモドーロタイマーなど、具体的な成果物を作ることで「使える感覚」を掴んでもらえた</li>
+        <li><span class="tag guest">学び</span> 他者主催のオフ会に参加することで、オフ会運営の進め方・構成の工夫を自分でも吸収できた</li>
+        <li><span class="tag next">次回へ</span> 「初心者が体を動かして学べる」形式は有効。自分のオフ会にも取り入れたい</li>
+    </ul>
+</div>
+
+<!-- とくじぃの所感 -->
+<div class="section">
+    <h2>📝 とくじぃの所感（オフ会まとめより）</h2>
+    <div class="report-card">
+        <div class="content">Claude Codeを使い、簡単な英単語帳やポモドーロタイマー作りをみんなで一緒にやりました。プロンプトも順を追って作業が進むよう事前に準備していただいており、すばらしかったです。
+
+まだ何に使えばよいかわからなかったという方も、実際の作成作業を通してClaudeを使うことを体感できたと喜んでおられたので、オフ会運営の勉強にもなりました。</div>
+    </div>
+</div>
+
+<!-- 次回への改善点 -->
+<div class="improve-list">
+    <h2>🔧 参加所感を活かした今後のポイント</h2>
+    <ul>
+        <li><strong>「作りながら学ぶ」形式の導入：</strong>実際に手を動かしてClaudeを体験させる時間を自分のオフ会でも設ける</li>
+        <li><strong>事前プロンプト準備：</strong>参加者が迷わないよう、当日使うプロンプトを事前に用意・配布する</li>
+        <li><strong>初心者向けコンテンツの充実：</strong>「何に使えばいいかわからない」参加者向けのとっかかりとなる具体的な課題を用意</li>
+        <li><strong>ゲスト参加の継続：</strong>他者のオフ会から学べることも多い。積極的にゲスト参加して見識を広める</li>
+    </ul>
+</div>
+
+<footer>
+    作成日: 2026年5月13日 ｜ データソース: リベシティ オフ会記録（4/26 ClaudeCode初操作 つまずきラボ @京都）
+</footer>
+
+</body>
+</html>

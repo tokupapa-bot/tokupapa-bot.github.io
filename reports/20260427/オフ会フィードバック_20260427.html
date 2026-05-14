@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4/27 オフ会フィードバックまとめ</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f0f4f8;
+            color: #333;
+            line-height: 1.7;
+        }
+        h1 {
+            background: linear-gradient(135deg, #2980b9, #1a5276);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 12px;
+            font-size: 1.4em;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .event-info {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #2980b9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .event-info h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .event-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        .event-info td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95em;
+        }
+        .event-info td:first-child {
+            font-weight: bold;
+            width: 130px;
+            color: #666;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .summary-box {
+            background: #eaf3fb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #2980b9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .summary-box h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .summary-box ul {
+            margin: 12px 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .summary-box li {
+            margin-bottom: 10px;
+            padding-left: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .tag.good { background: #27ae60; color: white; }
+        .tag.improve { background: #e67e22; color: white; }
+        .tag.next { background: #8e44ad; color: white; }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .feedback-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            border-left: 4px solid #2980b9;
+            position: relative;
+        }
+        .feedback-card:last-child { margin-bottom: 0; }
+        .feedback-card .name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1em;
+            margin-bottom: 3px;
+        }
+        .feedback-card .time {
+            font-size: 0.82em;
+            color: #999;
+            margin-bottom: 12px;
+        }
+        .feedback-card .content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+        }
+        .improve-list {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #c0392b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .improve-list h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #c0392b;
+            padding-bottom: 10px;
+        }
+        .improve-list ul {
+            margin: 12px 0 0;
+            padding-left: 20px;
+        }
+        .improve-list li {
+            margin-bottom: 10px;
+        }
+        .improve-list strong {
+            color: #c0392b;
+        }
+        footer {
+            text-align: center;
+            color: #aaa;
+            margin-top: 40px;
+            font-size: 0.85em;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📋 4/27 オフ会フィードバックまとめ</h1>
+
+<!-- イベント概要 -->
+<div class="event-info">
+    <h2>🗓 イベント概要</h2>
+    <table>
+        <tr><td>イベント名</td><td>Claude Code＆メルカリ活用オフ会（第7回）</td></tr>
+        <tr><td>日時</td><td>2026年4月27日（月）14:00 〜 16:00</td></tr>
+        <tr><td>場所</td><td>大阪（梅田）オフィス</td></tr>
+        <tr><td>定員・参加</td><td>定員7名・管理者1名＋参加者8名（計9名）</td></tr>
+        <tr><td>主催</td><td>とくじぃ@メルカリ不用品販売（トラ会員）</td></tr>
+        <tr><td>内容</td><td>「メルカリ活用法」に特化した内容。プロンプトのやり取りをありのままに公開。学長の言葉をきっかけにその日のうちにリベ大入会・Mac購入・Claude導入まで済ませた参加者も</td></tr>
+    </table>
+</div>
+
+<!-- フィードバック概要 -->
+<div class="summary-box">
+    <h2>✨ フィードバック概要</h2>
+    <ul>
+        <li><span class="tag good">好評</span> とくじぃさんの活用事例・プロンプトのやり取りを「ありのまま」見せてもらい、Claudeの可能性に感動した</li>
+        <li><span class="tag good">好評</span> 参加者同士が自然とサポートし合う場面があり、リベシティらしさを感じた（ナミさん談）</li>
+        <li><span class="tag good">好評</span> 途中参加・早退の参加者にも温かく対応してもらえた</li>
+        <li><span class="tag good">好評</span> 全員から「また参加したい」「次回も活用事例を持ってきたい」という声</li>
+        <li><span class="tag improve">課題</span> ポメポメチロルさんはClaude設定に時間がかかり席をあけることが多く、交流時間が十分取れなかった</li>
+        <li><span class="tag improve">課題</span> みごさんは15:30で早退。重要コンテンツを前半に集中させる構成も一案</li>
+        <li><span class="tag next">次回へ</span> 「こんなの作ったよ〜と報告しに来たい」という具体的な再参加意欲が生まれた</li>
+    </ul>
+</div>
+
+<!-- 参加者フィードバック -->
+<div class="section">
+    <h2>💬 参加者からの感想（チャットルームより）</h2>
+
+    <div class="feedback-card">
+        <div class="name">ナミ@腕時計せどりで一点突破😆（トラ会員）</div>
+        <div class="time">2026/04/27 17:33</div>
+        <div class="content">とくじぃさん
+
+本日はオフ会の開催は元より事前の席取りやプレゼン資料作成に、ポイント申請のアフターフォローまで誠にありがとうございました🙏
+
+とくじぃさんのご活用事例や、ご参加の方々の助け合いなど本当に学びの多い時間となりました☺️
+また次回以降、参加させて頂く際は私も一つでも活用事例をお伝えできるようになりたいと思います✨️
+
+今後ともどうぞよろしくお願い致しますm(_ _)m
+
+@ALL
+
+ご参加の皆さん
+
+本日はオフ会を通じて、交流させて頂きましてありがとうございました😊
+
+参加者同士で自然とサポートし合う風景が見られるのもリベならではと感動しました🍀
+
+またオフィス等でお会いした際は、どうぞよろしくお願い致します🙏</div>
+    </div>
+
+    <div class="feedback-card">
+        <div class="name">ともまる（ペンギン会員）</div>
+        <div class="time">2026/04/27 17:38</div>
+        <div class="content">今日は、途中参加でもお心良く引き受けてくださって感謝です
+皆さまの前向で、誰のお役に立ちたいとのお心に、私もそうなりたい！と、思いました。
+
+温かいお仲間に入れていただき本当にありがとうございます
+
+発見と気付きの連続であたまがグルグルです
+
+また、開催される時には是非参加させていただきたいです
+どうぞよろしくお願いいたします🙇‍♀️
+ありがとうございました</div>
+    </div>
+
+    <div class="feedback-card">
+        <div class="name">ポメポメチロル@羊毛わんこ制作&せどり（パンダ会員）</div>
+        <div class="time">2026/04/27 21:23</div>
+        <div class="content">@とくじぃさん
+
+ご準備から本日のオフ会終了まで、色々とお気遣いありがとうございました❣️
+
+活用事例に驚きの連続でした🤭
+
+私にもできるかなぁ🤣
+
+また機会があればぜひ参加させてくださいね🥰
+
+@ALL
+
+みなさま、今日は使えるようにするために、席をあけがちでゆっくりお話しできませんでしたが、次お会いできる時は、こんなの作ったよ〜と報告できるように、今日学んだことをヒントに、claud触りまくりたいと思います❣️
+
+ありがとうございました〜💖
+
+ポメポメチロル🐶</div>
+    </div>
+
+    <div class="feedback-card">
+        <div class="name">みご＠中国輸入×個人事業主（トラ会員）</div>
+        <div class="time">2026/04/27 21:44</div>
+        <div class="content">今日はありがとうございました😊
+
+とくじぃさん、いつも有難うございます🤲
+
+15時30分までしか居れなくてお先に失礼すみません。
+
+途中、Chromeの設定できなくて誰か頼れないかなーと思いましたが、
+リベの素晴らしい所。仕事してたれいさんに声掛けたら『やってみますよー』って設定してもらえて良かったです。
+
+これだけでも今日はオフ会行って良かったなと思ってます😊
+
+よくオフィスにいてますのでお気軽にお声掛けください！
+
+自分も困り事あれば頼りますので何か困った時はお助けお願い致します！
+
+ありがとうございました😊</div>
+    </div>
+</div>
+
+<!-- 次回への改善点 -->
+<div class="improve-list">
+    <h2>🔧 次回オフ会に向けた改善ポイント</h2>
+    <ul>
+        <li><strong>設定サポートタイムの別立て：</strong>Claude設定に時間がかかる参加者がいると交流時間が減る。設定サポートを前半・または別枠で確保する</li>
+        <li><strong>早退者への配慮：</strong>重要なコンテンツを前半に集中させ、途中退席があっても主要な学びを持ち帰れる構成に</li>
+        <li><strong>「作品持参」文化の醸成：</strong>「次回は作ったものを持ってきたい」という声あり。次回への宿題・課題を設けることで継続参加を促進</li>
+        <li><strong>参加者同士の交流促進：</strong>「自然にサポートし合う場面」が生まれていた。意図的な交流タイムを設けるとさらに充実</li>
+        <li><strong>ポイント申請のフォロー継続：</strong>事後にポイント申請案内を送ることで参加者の満足度とリベシティ活用が高まる</li>
+    </ul>
+</div>
+
+<footer>
+    作成日: 2026年5月13日 ｜ データソース: リベシティ チャットルーム（4/27 Claude Code＆メルカリ活用オフ会＠梅田）
+</footer>
+
+</body>
+</html>

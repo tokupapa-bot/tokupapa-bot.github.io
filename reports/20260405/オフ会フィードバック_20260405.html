@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4/5 オフ会フィードバックまとめ</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f0f4f8;
+            color: #333;
+            line-height: 1.7;
+        }
+        h1 {
+            background: linear-gradient(135deg, #f57f17, #e65100);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 12px;
+            font-size: 1.4em;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .event-info {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #f57f17;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .event-info h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .event-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        .event-info td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95em;
+        }
+        .event-info td:first-child {
+            font-weight: bold;
+            width: 130px;
+            color: #666;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+        .summary-box {
+            background: #fff8e1;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #f57f17;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .summary-box h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .summary-box ul {
+            margin: 12px 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .summary-box li {
+            margin-bottom: 10px;
+            padding-left: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .tag.good { background: #27ae60; color: white; }
+        .tag.improve { background: #e67e22; color: white; }
+        .tag.next { background: #8e44ad; color: white; }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #f57f17;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .feedback-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            border-left: 4px solid #f57f17;
+            position: relative;
+        }
+        .feedback-card:last-child { margin-bottom: 0; }
+        .feedback-card .name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1em;
+            margin-bottom: 3px;
+        }
+        .feedback-card .time {
+            font-size: 0.82em;
+            color: #999;
+            margin-bottom: 12px;
+        }
+        .feedback-card .content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+        }
+        .host-card {
+            background: #fff8e1;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 24px;
+            border-left: 4px solid #e65100;
+            border-top: 1px solid #ffe082;
+        }
+        .host-card .label {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #e65100;
+            margin-bottom: 6px;
+        }
+        .host-card .content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+        }
+        .improve-list {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 6px solid #c0392b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .improve-list h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.1em;
+            border-bottom: 2px solid #c0392b;
+            padding-bottom: 10px;
+        }
+        .improve-list ul {
+            margin: 12px 0 0;
+            padding-left: 20px;
+        }
+        .improve-list li {
+            margin-bottom: 10px;
+        }
+        .improve-list strong {
+            color: #c0392b;
+        }
+        footer {
+            text-align: center;
+            color: #aaa;
+            margin-top: 40px;
+            font-size: 0.85em;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📋 4/5 オフ会フィードバックまとめ</h1>
+
+<!-- イベント概要 -->
+<div class="event-info">
+    <h2>🗓 イベント概要</h2>
+    <table>
+        <tr><td>イベント名</td><td>Claude Codeを触ってみよう！初心者わいわい雑談会＠四ツ橋</td></tr>
+        <tr><td>日時</td><td>2026年4月5日（日）13:00 〜 15:00</td></tr>
+        <tr><td>場所</td><td>大阪（四ツ橋）オフィス</td></tr>
+        <tr><td>定員・参加</td><td>定員10名・管理者1名＋参加者9名（計10名、定員満員）</td></tr>
+        <tr><td>主催</td><td>とくじぃ@メルカリ不用品販売（トラ会員）</td></tr>
+        <tr><td>内容</td><td>Claude Codeインストール済みは参加者9名のうち自分含め3名のみ。残りの方はこの会でインストールしたいという初心者。安心できる環境でインストール支援を実施。事前にパワポも準備し進行。動画作成・ディスパッチなど活用テーマも共有した</td></tr>
+    </table>
+</div>
+
+<!-- フィードバック概要 -->
+<div class="summary-box">
+    <h2>✨ フィードバック概要</h2>
+    <ul>
+        <li><span class="tag good">好評</span> インストールの壁を参加者が乗り越えられた。「そばに誰かいてくれると前に進める」を実感（主催者談）</li>
+        <li><span class="tag good">好評</span> オフ会翌日にClaudeを使って業務課題の資料を作成。「ChatGPTより簡単で良いものを返してくれる」（T-takeさん）</li>
+        <li><span class="tag good">好評</span> 「インストールができて、少し使えた。これからが楽しみ」という前向きな声（konaさん）</li>
+        <li><span class="tag good">好評</span> 事前にパワポを準備したことで進行がスムーズになった</li>
+        <li><span class="tag improve">課題</span> 定員10名に達し受付終了となった。参加したくても入れない方が出た可能性がある</li>
+        <li><span class="tag next">次回へ</span> 動画作成・ディスパッチなど「次に挑戦したいテーマ」が参加者から生まれた</li>
+    </ul>
+</div>
+
+<!-- 主催者の振り返り -->
+<div class="section">
+    <h2>📝 主催者（とくじぃ）の振り返り</h2>
+    <div class="host-card">
+        <div class="label">🎤 とくじぃ より（2026/04/05 15:21）</div>
+        <div class="content">本日ご参加いただいたみなさん、お疲れ様でした！
+ClaudeCodeの楽しさ、少しでも伝わったでしょうか。
+
+とりあえず、インストールの壁は、みなさん乗り越えられたのかなぁーと思います。
+
+動画作成や、ディスパッチなど、私もこれから挑戦したいテーマが見つかりました。
+本当にありがとうございました。
+
+最後に今日のパワポデータ、GoogleDriveで共有しておきます。
+また、機会がありましたら、オフ会でお会いしましょう!</div>
+    </div>
+</div>
+
+<!-- 参加者フィードバック -->
+<div class="section">
+    <h2>💬 参加者からの感想（チャットルームより）</h2>
+
+    <div class="feedback-card">
+        <div class="name">kona＠副業模索中（イルカ会員）</div>
+        <div class="time">2026/04/05 18:43</div>
+        <div class="content">@とくじぃ@メルカリ不用品販売(トラ会員) さん
+@ALL
+
+今日はありがとうございました。無事にClaude Code のインストールも出来ましたし少し使って、どんなことがこの先出来るようになるのか楽しみになりました。少しずつさわって見ようと思います。
+
+資料の共有もありがとうございました。</div>
+    </div>
+
+    <div class="feedback-card">
+        <div class="name">T-take（パンダ会員）</div>
+        <div class="time">2026/04/07 05:49</div>
+        <div class="content">@とくじぃ@メルカリ不用品販売(トラ会員) さん
+
+オフ会、ClaudeCode 無事導入することができありがとうございました。
+
+帰宅後、試しに 'RPA' を Claude Cowork に尋ねて、3回ほどのやり取りで、添付の資料ができました。
+どちらかというと Claude AI的な活用になってしまいましたが、明らかに、Gptより簡単にいいものを返してくれます。
+
+今後も、活用方法を見つけていきたいと思います。
+ポイント情報ありがとうございました。</div>
+    </div>
+</div>
+
+<!-- 次回への改善点 -->
+<div class="improve-list">
+    <h2>🔧 次回オフ会に向けた改善ポイント</h2>
+    <ul>
+        <li><strong>インストール専用タイムの確保：</strong>参加者の多くがインストール未経験。設定サポートの時間を前半に明示的に確保する</li>
+        <li><strong>パワポ・資料準備の継続：</strong>事前にパワポを作り込むことで進行がスムーズになった。次回以降も継続する</li>
+        <li><strong>定員管理と補欠枠の検討：</strong>10名満員で受付終了。定員を少し大きくするか補欠枠を設けることを検討</li>
+        <li><strong>活用テーマ提示の強化：</strong>「動画作成」「ディスパッチ」など具体的な活用テーマを示すことで参加者のイメージが広がり、帰宅後すぐに実践につながった</li>
+        <li><strong>ポイント申請案内の継続：</strong>事後のポイント申請・キャンペーン案内は参加者満足度を高める。次回以降も必ず実施する</li>
+    </ul>
+</div>
+
+<footer>
+    作成日: 2026年5月14日 ｜ データソース: リベシティ チャットルーム（4/5 Claude Codeを触ってみよう！初心者わいわい雑談会＠四ツ橋）
+</footer>
+
+</body>
+</html>
