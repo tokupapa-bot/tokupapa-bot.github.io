@@ -15,9 +15,10 @@ body {
 
 /* ===== HERO ===== */
 .hero {
-  background: url('miyakojima_sea.jpg') center center / cover no-repeat;
-  padding: 64px 24px 60px;
-  text-align: center;
+  background: url('libecity-festival-hero.png') left center / cover no-repeat;
+  min-height: 680px;
+  padding: 72px 48px 64px;
+  text-align: left;
   position: relative;
   overflow: hidden;
 }
@@ -25,43 +26,48 @@ body {
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 15% 40%, rgba(99,179,237,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, rgba(154,215,254,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 90%, rgba(255,140,66,0.07) 0%, transparent 55%);
+    linear-gradient(90deg, rgba(244,246,250,0.06) 0%, rgba(244,246,250,0.18) 40%, rgba(21,27,48,0.78) 68%, rgba(21,27,48,0.9) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.22) 100%);
 }
 .hero-eyebrow {
-  display: inline-block;
+  display: block;
+  width: max-content;
+  max-width: 100%;
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.85);
   font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
   padding: 6px 22px; border-radius: 20px;
-  margin-bottom: 28px; position: relative;
+  margin-bottom: 28px; margin-left: auto; margin-right: 0; position: relative;
 }
 .hero-avatar {
   width: 160px; height: 160px;
   border-radius: 50%;
   background: transparent;
   border: 3px solid rgba(255,255,255,0.4);
-  margin: 0 auto 16px;
+  margin: 0 0 16px auto;
   display: block;
   position: relative;
   object-fit: cover;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
 }
 .hero h1 {
-  font-size: clamp(26px, 5vw, 48px); font-weight: 800;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: 0;
+  font-size: clamp(30px, 5vw, 52px); font-weight: 800;
   color: #fff; line-height: 1.25;
   text-shadow: 0 2px 16px rgba(0,0,0,0.3);
   position: relative;
 }
 .hero h1 span {
-  background: linear-gradient(90deg, #FF8C42, #FFD580);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  color: #FFD166;
 }
 .hero-sub {
-  margin-top: 16px; font-size: 17px;
-  color: rgba(255,255,255,0.7); position: relative; line-height: 1.7;
+  max-width: 760px;
+  margin: 18px 0 0 auto; font-size: 16px;
+  color: rgba(255,255,255,0.92); position: relative; line-height: 1.85;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.28);
 }
 .hero-stats-bar {
   display: flex; justify-content: center; gap: 0;
@@ -69,7 +75,7 @@ body {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px; overflow: hidden;
-  max-width: 620px; margin-left: auto; margin-right: auto;
+  max-width: 620px; margin-left: auto; margin-right: 0;
 }
 .hero-stat {
   flex: 1; padding: 18px 12px; text-align: center;
@@ -85,6 +91,7 @@ body {
 .hero-stat-group-items { display: flex; justify-content: space-around; }
 .hero-stat-sub { flex: 1; text-align: center; padding: 0 4px; border-right: 1px solid rgba(255,255,255,0.08); }
 .hero-stat-sub:last-child { border-right: none; }
+.hero > * { z-index: 1; }
 
 /* ===== SECTION ===== */
 .section {
@@ -360,6 +367,7 @@ body {
   border-radius: 10px;
   padding: 14px 18px;
   margin-bottom: 16px;
+  overflow: hidden;
 }
 .tl-banner.guest {
   background: linear-gradient(135deg, #b94500 0%, #e87c1e 100%);
@@ -370,6 +378,14 @@ body {
 }
 .tl-banner-title {
   font-size: 17px; font-weight: 800; color: #fff; line-height: 1.3;
+}
+.tl-banner-stats {
+  float: right;
+  text-align: right;
+  font-size: 12px; font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.7; white-space: nowrap;
+  margin-left: 12px;
 }
 .slide-crop-col {
   overflow: hidden;
@@ -458,6 +474,31 @@ footer {
   line-height: 1.8;
 }
 footer a { color: #FF8C42; text-decoration: none; }
+@media (max-width: 760px) {
+  .hero {
+    background-position: 24% center;
+    min-height: auto;
+    padding: 52px 18px 44px;
+    text-align: center;
+  }
+  .hero::before {
+    background: linear-gradient(180deg, rgba(21,27,48,0.22) 0%, rgba(21,27,48,0.86) 46%, rgba(21,27,48,0.94) 100%);
+  }
+  .hero-eyebrow,
+  .hero-avatar,
+  .hero h1,
+  .hero-sub,
+  .hero-stats-bar {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-sub { font-size: 14px; line-height: 1.75; }
+  .hero-stats-bar { flex-direction: column; }
+  .hero-stat-group,
+  .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .hero-stat-group:last-child,
+  .hero-stat:last-child { border-bottom: none; }
+}
 </style>
 </head>
 <body>
@@ -499,8 +540,8 @@ footer a { color: #FF8C42; text-decoration: none; }
           <div class="hero-stat-label">参加</div>
         </div>
         <div class="hero-stat-sub">
-          <div class="hero-stat-num">7<span>回</span></div>
-          <div class="hero-stat-label">主催</div>
+          <div class="hero-stat-num">9<span>回</span></div>
+          <div class="hero-stat-label">開催</div>
         </div>
       </div>
     </div>
@@ -539,7 +580,7 @@ footer a { color: #FF8C42; text-decoration: none; }
   <div class="section-title">MEETUP HISTORY</div>
   <div class="section-heading">
     オフ会
-    <small>主催7回・参加4回・BBQ1回　すべての記録</small>
+    <small>開催9回・参加4回・BBQ1回　すべての記録</small>
   </div>
 
   <div style="margin-top: 52px;">
@@ -612,8 +653,9 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年3月29日</div>
-          <div class="tl-banner-title">🤖 Claude Code おしゃべり会（初回）</div>
+          <div class="tl-banner-stats"><div>参加人数 8名</div><div>累積のべ 8名</div></div>
+          <div class="tl-banner-date">2026年3月29日　第1回</div>
+          <div class="tl-banner-title">🤖 Claude Code おしゃべり会</div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">🚀 記念すべき第1回</span>
@@ -642,7 +684,8 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月5日</div>
+          <div class="tl-banner-stats"><div>参加人数 9名</div><div>累積のべ 17名</div></div>
+          <div class="tl-banner-date">2026年4月5日　第2回</div>
           <div class="tl-banner-title">💬 ClaudeCode初心者 わいわい雑談会</div>
         </div>
         <div class="tl-meta">
@@ -672,7 +715,8 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月6日</div>
+          <div class="tl-banner-stats"><div>参加人数 3名</div><div>累積のべ 20名</div></div>
+          <div class="tl-banner-date">2026年4月6日　第3回</div>
           <div class="tl-banner-title">🛠 ClaudeCode 導入お助けオフ会</div>
         </div>
         <div class="tl-meta">
@@ -696,7 +740,8 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月13日</div>
+          <div class="tl-banner-stats"><div>参加人数 2名</div><div>累積のべ 22名</div></div>
+          <div class="tl-banner-date">2026年4月13日　第4回</div>
           <div class="tl-banner-title">🤝 ClaudeCode 導入お手伝いオフ会</div>
         </div>
         <div class="tl-meta">
@@ -719,7 +764,8 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月20日</div>
+          <div class="tl-banner-stats"><div>参加人数 6名</div><div>累積のべ 28名</div></div>
+          <div class="tl-banner-date">2026年4月20日　第5回</div>
           <div class="tl-banner-title">📦 ClaudeCode ＆ メルカリ活用オフ会</div>
         </div>
         <div class="tl-meta">
@@ -777,7 +823,8 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月26日</div>
+          <div class="tl-banner-stats"><div>参加人数 7名</div><div>累積のべ 35名</div></div>
+          <div class="tl-banner-date">2026年4月26日　第6回</div>
           <div class="tl-banner-title">📚 ClaudeCode 勉強会 @京都</div>
         </div>
         <div class="tl-meta">
@@ -804,14 +851,14 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年4月27日（最新回）</div>
+          <div class="tl-banner-date">2026年4月27日　第7回</div>
+          <div class="tl-banner-stats"><div>参加人数 8名</div><div>累積のべ 43名</div></div>
           <div class="tl-banner-title">🛒 ClaudeCode ＆ メルカリ活用オフ会 @梅田</div>
         </div>
         <div class="tl-meta">
           <span class="tl-badge">👥 8名参加</span>
           <span class="tl-badge">📍 大阪・梅田</span>
-          <span class="tl-badge">🏆 最新回</span>
-        </div>
+          </div>
         <div class="slide-img-wrap"><img src="slides/slide_25.png" alt="4/27 開催実績"></div>
         <div class="tl-members">
           <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#FF8C42,#E05500)">と</span>とくじぃ</span>
@@ -834,7 +881,8 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年5月10日（日）</div>
+          <div class="tl-banner-stats"><div>参加人数 10名</div><div>累積のべ 53名</div></div>
+          <div class="tl-banner-date">2026年5月10日（日）　第8回</div>
           <div class="tl-banner-title">📊 ClaudeCode 活用事例報告会 @梅田オフィス</div>
         </div>
         <div class="tl-meta">
@@ -853,6 +901,7 @@ footer a { color: #FF8C42; text-decoration: none; }
           <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#ffa726,#e65100)">わ</span>わーぷ</span>
           <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#78909c,#37474f)">サ</span>サニー</span>
         </div>
+        <div class="slide-img-wrap no-crop"><img src="画像/オフ会記念写真/0510/記念写真イラスト化.png" alt="5/10 記念写真" style="width:100%;"></div>
         <div class="tl-desc">メルカリ・ホームページ・請求書などの活用事例を共有。当日は急遽参加のわーぷさんがアパレルせどりの実践知識を共有してくださり内容が一層充実。まなみさんは帰宅後すぐにメルカリ出品を実行するなど、直接行動につながった会となりました。参加者の行動力に刺激を受けた、と互いに高め合える場になりました。</div>
         <a href="reports/20260510/オフ会フィードバック_20260510.html" target="_blank" style="display:inline-block;margin-top:14px;padding:8px 20px;background:linear-gradient(135deg,#27ae60,#1a5c35);color:white;border-radius:20px;text-decoration:none;font-size:0.85em;font-weight:bold;">📋 フィードバックレポートを見る →</a>
       </div>
@@ -863,11 +912,12 @@ footer a { color: #FF8C42; text-decoration: none; }
       <div class="tl-dot done"></div>
       <div class="tl-card done">
         <div class="tl-banner">
-          <div class="tl-banner-date">2026年5月11日（月）</div>
+          <div class="tl-banner-stats"><div>参加人数 7名</div><div>累積のべ 60名</div></div>
+          <div class="tl-banner-date">2026年5月11日（月）　第9回</div>
           <div class="tl-banner-title">📊 ClaudeCode 活用事例報告会 @四ツ橋オフィス</div>
         </div>
         <div class="tl-meta">
-          <span class="tl-badge">👥 9名参加</span>
+          <span class="tl-badge">👥 7名参加</span>
           <span class="tl-badge">📍 大阪・四ツ橋</span>
           <span class="tl-badge">🏆 最新回</span>
         </div>
@@ -882,6 +932,7 @@ footer a { color: #FF8C42; text-decoration: none; }
           <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#aed581,#558b2f)">ア</span>アボカド姉さん</span>
           <span class="tl-member"><span class="tl-member-avatar" style="background:linear-gradient(135deg,#78909c,#37474f)">お</span>おけい</span>
         </div>
+        <div class="slide-img-wrap no-crop"><img src="画像/オフ会記念写真/0511/記念写真イラスト化.png" alt="5/11 記念写真" style="width:100%;"></div>
         <div class="tl-desc">メルカリ・ホームページ・請求書など、実際にClaudeCodeを活用している事例を惜しみなく共有。「こんなこともできるんだ！」という驚きと発見が続出し、2時間があっという間の充実した会となりました。参加者全員から「次も参加したい」「またオフ会を開催してほしい」との声をいただきました。主催者自身の反省点として「しゃべりすぎて参加者の活用事例を聞く時間が取れなかった」という課題も見えており、次回への改善につなげます。</div>
         <a href="reports/20260511/オフ会フィードバック_20260511.html" target="_blank" style="display:inline-block;margin-top:14px;padding:8px 20px;background:linear-gradient(135deg,#3498db,#2c3e50);color:white;border-radius:20px;text-decoration:none;font-size:0.85em;font-weight:bold;">📋 フィードバックレポートを見る →</a>
       </div>
