@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClaudeCode × メルカリ 進化の記録</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+  background: #F7F8FC;
+  color: #1a1a2e;
+  min-height: 100vh;
+  font-size: 17px;
+}
+
+/* ヘッダー */
+.hero {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF4757 60%, #c73652 100%);
+  padding: 56px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 55%);
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  position: relative;
+}
+.hero h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 800;
+  color: #fff;
+  position: relative;
+  line-height: 1.3;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.hero-sub {
+  margin-top: 16px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.88);
+  position: relative;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.stat {
+  text-align: center;
+  background: rgba(255,255,255,0.2);
+  border-radius: 14px;
+  padding: 14px 26px;
+  min-width: 90px;
+}
+.stat-num { font-size: 34px; font-weight: 800; color: #fff; line-height: 1; }
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.82); margin-top: 5px; font-weight: 600; }
+
+/* タイムライン */
+.timeline { max-width: 900px; margin: 0 auto; padding: 52px 24px 80px; }
+
+/* ステップ */
+.step { margin-bottom: 56px; }
+.step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+.step-num {
+  width: 50px; height: 50px; border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B6B, #FF4757);
+  color: #fff; font-size: 20px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; box-shadow: 0 4px 16px rgba(255,71,87,0.35);
+}
+.step-num.blue { background: linear-gradient(135deg, #5378e9, #3456c7); box-shadow: 0 4px 16px rgba(83,120,233,0.35); }
+.step-num.green { background: linear-gradient(135deg, #27c99f, #1a9e7d); box-shadow: 0 4px 16px rgba(39,201,159,0.35); }
+.step-num.gold { background: linear-gradient(135deg, #faad14, #d48806); box-shadow: 0 4px 16px rgba(250,173,20,0.35); }
+.step-title { font-size: 23px; font-weight: 800; color: #1a1a2e; line-height: 1.2; }
+.step-date { font-size: 13px; color: #888; margin-top: 4px; }
+
+/* 矢印 */
+.arrow { text-align: center; font-size: 30px; color: #FF4757; margin: -28px 0 12px; opacity: 0.55; }
+
+/* 指示ボックス */
+.instruction-box {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-left: 5px solid #FF4757;
+  border-radius: 14px;
+  padding: 22px 28px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+}
+.instruction-box.blue { border-left-color: #5378e9; }
+.instruction-box.green { border-left-color: #27c99f; }
+.instruction-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  color: #FF4757; margin-bottom: 12px; text-transform: uppercase;
+}
+.instruction-label.blue { color: #5378e9; }
+.instruction-label.green { color: #27c99f; }
+.instruction-text { font-size: 19px; line-height: 1.85; color: #333; }
+.instruction-text strong { color: #1a1a2e; font-weight: 700; }
+
+/* 助言ボックス */
+.advice-box {
+  background: #fff;
+  border: 1px solid #dde5ff;
+  border-radius: 14px;
+  padding: 22px 28px;
+  box-shadow: 0 2px 12px rgba(83,120,233,0.07);
+}
+.advice-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.advice-icon {
+  width: 38px; height: 38px; background: #EEF2FF;
+  border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-size: 20px;
+}
+.advice-name { font-size: 14px; font-weight: 700; color: #5378e9; }
+.advice-role { font-size: 12px; color: #aaa; }
+.advice-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.advice-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 17px; color: #444; line-height: 1.75;
+}
+.advice-list li::before { content: '💡'; flex-shrink: 0; font-size: 17px; margin-top: 2px; }
+.advice-list li strong { color: #1a1a2e; font-weight: 700; }
+
+/* 成果物カード */
+.result-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 3px 18px rgba(0,0,0,0.07);
+}
+.result-card-header {
+  background: linear-gradient(90deg, #FFF0F1, #fff);
+  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 22px;
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.result-card-header.blue { background: linear-gradient(90deg, #EEF2FF, #fff); }
+.result-card-header.green { background: linear-gradient(90deg, #F0FFF8, #fff); }
+.result-card-title { font-size: 15px; font-weight: 700; color: #333; }
+.result-card-badge {
+  font-size: 12px; font-weight: 700;
+  padding: 4px 13px; border-radius: 20px;
+  background: #FFF0F1; color: #FF4757; border: 1px solid #FFD0D5;
+}
+.result-card-badge.blue { background: #EEF2FF; color: #5378e9; border-color: #c7d4fa; }
+.result-card-badge.green { background: #F0FFF8; color: #27c99f; border-color: #a8ecd8; }
+
+/* Excel画像 */
+.excel-img-wrap { position: relative; cursor: default; }
+.excel-img-wrap img {
+  width: 100%; height: auto; display: block;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 開くボタン */
+.open-btn-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px; gap: 12px; flex-wrap: wrap;
+  background: #fafafa; border-top: 1px solid #f0f0f0;
+}
+.open-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #FF6B6B, #FF4757);
+  color: #fff; font-size: 14px; font-weight: 700;
+  padding: 9px 20px; border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(255,71,87,0.3);
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.open-btn:hover { opacity: 0.88; }
+.open-btn.blue {
+  background: linear-gradient(135deg, #5378e9, #3456c7);
+  box-shadow: 0 3px 10px rgba(83,120,233,0.3);
+}
+.open-btn.green {
+  background: linear-gradient(135deg, #27c99f, #1a9e7d);
+  box-shadow: 0 3px 10px rgba(39,201,159,0.3);
+}
+.open-btn-note { font-size: 12px; color: #aaa; }
+
+/* 差分バッジ */
+.diff-added {
+  display: inline-block; font-size: 10px; color: #27c99f;
+  font-weight: 700; padding: 1px 7px;
+  background: #E8FFF6; border: 1px solid #a8ecd8;
+  border-radius: 4px; margin-left: 8px; vertical-align: middle;
+}
+
+/* WOWバナー */
+.wow-banner {
+  background: linear-gradient(135deg, #FFF5F5, #FFF0F1);
+  border: 1px solid #FFD0D5; border-radius: 12px;
+  padding: 16px 22px; margin-top: 14px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.wow-banner.blue {
+  background: linear-gradient(135deg, #F5F8FF, #EEF2FF);
+  border-color: #c7d4fa;
+}
+.wow-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.wow-text { font-size: 17px; color: #555; line-height: 1.75; }
+.wow-text strong { color: #1a1a2e; font-weight: 700; }
+
+/* 機能タグ */
+.feature-tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  padding: 0 20px 18px;
+}
+.ftag {
+  font-size: 14px; color: #555;
+  background: #F0FFF8; border: 1px solid #a8ecd8;
+  border-radius: 20px; padding: 6px 14px;
+}
+.ftag strong { color: #1a9e7d; }
+
+/* セクション区切り */
+.divider { display: flex; align-items: center; gap: 16px; margin: 44px 0; }
+.divider-line { flex: 1; height: 1px; background: #E0E0E0; }
+.divider-text { font-size: 12px; color: #bbb; letter-spacing: 0.12em; font-weight: 600; }
+
+/* まとめ */
+.summary-box {
+  background: #fff; border: 2px solid #FFD0D5;
+  border-radius: 20px; padding: 38px 30px;
+  text-align: center; box-shadow: 0 4px 24px rgba(255,71,87,0.07);
+}
+.summary-box h2 { font-size: 24px; font-weight: 800; color: #1a1a2e; line-height: 1.5; margin-bottom: 16px; }
+.summary-box p { font-size: 17px; color: #666; line-height: 1.95; }
+.summary-box p strong { color: #FF4757; font-weight: 700; }
+
+/* フッター */
+.footer {
+  text-align: center; padding: 28px 20px;
+  color: #bbb; font-size: 13px;
+  border-top: 1px solid #eee; background: #fff;
+}
+
+.ai-life-back {
+  max-width: 900px;
+  margin: 56px auto 0;
+  padding: 0 24px;
+}
+.ai-life-back a {
+  display: inline-flex;
+  align-items: center;
+  color: #0d8a6c;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 900;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.ai-life-back a:hover { color: #096b55; }
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="hero-badge">ClaudeCode × メルカリ 活用事例</div>
+  <h1>📦 メルカリ出品リスト<br>進化の記録</h1>
+  <p class="hero-sub">「ちょっとお願い」が、本格ツールになるまで</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">バージョン</div></div>
+    <div class="stat"><div class="stat-num">194</div><div class="stat-label">出品中アイテム</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">コード知識</div></div>
+  </div>
+</div>
+
+<!-- タイムライン -->
+<div class="timeline">
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">最初の指示</div>
+        <div class="step-date">2026年3月下旬 ／ ClaudeCode（最初のセッション）</div>
+      </div>
+    </div>
+    <div class="instruction-box">
+      <div class="instruction-label">🗣 Claudeへの指示</div>
+      <div class="instruction-text">「<strong>メルカリの出品中のリストを作成してください</strong>」</div>
+    </div>
+    <div class="wow-banner">
+      <div class="wow-icon">😲</div>
+      <div class="wow-text">
+        指示はたったこれだけ。なのに返ってきたのは…<br>
+        <strong>値下げ推奨・現状価格維持まで自動判断してくれたリスト</strong>でした。
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- Version 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num blue">V1</div>
+      <div>
+        <div class="step-title">Version 1 完成</div>
+        <div class="step-date">mercari_listings.xlsx ／ 出品リスト＋値下げ判断つき</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header">
+        <span class="result-card-title">📊 mercari_listings.xlsx ／ 出品リストシート（7列）</span>
+        <span class="result-card-badge">Ver.1</span>
+      </div>
+      <div class="excel-img-wrap">
+        <img src="excel_v1.png" alt="メルカリ出品リスト Version 1 スクリーンショット">
+      </div>
+      <div class="open-btn-row">
+        <span class="open-btn">
+          📂 Excelファイルは非公開
+        </span>
+        <span class="open-btn-note">公開ページではスクリーンショットのみ掲載しています</span>
+      </div>
+    </div>
+    <div class="wow-banner">
+      <div class="wow-icon">🎉</div>
+      <div class="wow-text">
+        これをオフ会に持参！<br>参加していた <strong>Webエンジニアの方</strong>から、こんなアドバイスをもらいました。
+      </div>
+    </div>
+  </div>
+
+  <!-- オフ会アドバイス -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num gold">💡</div>
+      <div>
+        <div class="step-title">オフ会でのアドバイス</div>
+        <div class="step-date">リベシティオフ会 ／ Webエンジニア参加者より</div>
+      </div>
+    </div>
+    <div class="advice-box">
+      <div class="advice-header">
+        <div class="advice-icon">👨‍💻</div>
+        <div>
+          <div class="advice-name">Webエンジニア参加者</div>
+          <div class="advice-role">リベシティメンバー</div>
+        </div>
+      </div>
+      <ul class="advice-list">
+        <li>ここまでできているなら、<strong>なぜ値下げを推奨するのか「理由」</strong>も入れてもらえば？</li>
+        <li><strong>推奨の出品価格（具体的な金額）</strong>も提示してもらえばもっと使いやすい</li>
+        <li>なぜその金額になったのか、<strong>検索した件数（サンプル数）もエビデンスとして</strong>入れてもらえば完璧</li>
+      </ul>
+    </div>
+    <div class="instruction-box blue" style="margin-top:18px">
+      <div class="instruction-label blue">🗣 追加の指示（アドバイスをそのまま貼り付けた）</div>
+      <div class="instruction-text">
+        「<strong>値下げを推奨した理由を入れてください。<br>
+        推奨の出品価格も提示してください。<br>
+        なぜその金額になったか、検索した件数もエビデンスとして入れてください。</strong>」
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- Version 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num blue">V2</div>
+      <div>
+        <div class="step-title">Version 2 完成</div>
+        <div class="step-date">mercari_listings_v3.xlsx ／ 判断根拠・相場価格・提案価格・サンプル数を追加（4列増）</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header blue">
+        <span class="result-card-title">
+          📊 mercari_listings_v3.xlsx（11列）
+          <span class="diff-added">+4列 NEW</span>
+        </span>
+        <span class="result-card-badge blue">Ver.2</span>
+      </div>
+      <div class="excel-img-wrap">
+        <img src="excel_v2.png" alt="メルカリ出品リスト Version 2 スクリーンショット">
+      </div>
+      <div class="open-btn-row">
+        <span class="open-btn blue">
+          📂 Excelファイルは非公開
+        </span>
+        <span class="open-btn-note">緑の4列（判断根拠・相場価格・提案価格・サンプル数）がオフ会アドバイスで追加された列</span>
+      </div>
+    </div>
+    <div class="wow-banner blue">
+      <div class="wow-icon">✨</div>
+      <div class="wow-text">
+        アドバイスをそのまま貼り付けただけで、<strong>4列が自動追加</strong>されました。<br>
+        これで十分満足…でも、もう一歩だけ。
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">さらに進化へ</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- 画像追加指示 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num green">3</div>
+      <div>
+        <div class="step-title">さらに改良リクエスト</div>
+        <div class="step-date">ClaudeCode（追加セッション）</div>
+      </div>
+    </div>
+    <div class="instruction-box green">
+      <div class="instruction-label green">🗣 Claudeへの指示</div>
+      <div class="instruction-text">「<strong>画像付きの出品リストにしてください</strong>」</div>
+    </div>
+  </div>
+
+  <div class="arrow">↓</div>
+
+  <!-- Version 3 最終版 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num green">V3</div>
+      <div>
+        <div class="step-title">最終版 完成</div>
+        <div class="step-date">スマホ対応・画像付き・在庫チェック機能つきWebアプリ（194件）</div>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="result-card-header green">
+        <span class="result-card-title">📱 メルカリ在庫チェックリスト（Webアプリ）</span>
+        <span class="result-card-badge green">最終版</span>
+      </div>
+      <div class="excel-img-wrap">
+        <img src="mercari_v3_screenshot.jpg" alt="メルカリ在庫チェックリスト 最終版スクリーンショット">
+      </div>
+      <div class="open-btn-row">
+        <span class="open-btn green">
+          🌐 Webアプリは画面のみ紹介
+        </span>
+        <span class="open-btn-note">公開ページではスクリーンショットのみ掲載しています</span>
+      </div>
+      <div class="feature-tags">
+        <span class="ftag">📱 <strong>スマホ対応</strong>（ホーム画面に追加可能）</span>
+        <span class="ftag">🖼 <strong>商品画像</strong>自動取得</span>
+        <span class="ftag">✅ <strong>在庫チェック</strong>自動保存</span>
+        <span class="ftag">🔍 <strong>検索・絞り込み</strong></span>
+        <span class="ftag">🔄 <strong>リスト更新</strong>機能</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- まとめ -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">まとめ</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="summary-box">
+    <div style="font-size:38px;margin-bottom:18px">🚀</div>
+    <h2>「作ってください」の一言から<br>本格ツールへ</h2>
+    <p>
+      コードの知識ゼロ。<br>
+      言葉で指示するだけで、ExcelもWebアプリも作れる時代になりました。<br>
+      <strong>オフ会の仲間のアドバイス</strong>を次のセッションに持ち込んだら、<br>
+      またすぐ次のバージョンができていました。
+    </p>
+  </div>
+
+</div>
+
+<div class="ai-life-back">
+  <a href="../ai_life.html">← とくじぃのAIライフへ戻る</a>
+</div>
+
+<div class="footer">
+  ClaudeCode活用事例 ／ リベシティオフ会 2026年4月
+</div>
+
+</body>
+</html>
